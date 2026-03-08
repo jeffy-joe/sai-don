@@ -110,7 +110,7 @@ export function ArchitectureBuilder() {
             </div>
             <div>
               <h3 className="text-xl font-bold">No services added yet</h3>
-              <p className="text-muted-foreground max-w-sm mx-auto">
+              <p className="text-muted-foreground max-sm mx-auto">
                 Start by adding cloud services from AWS, Azure, or GCP to your infrastructure design.
               </p>
             </div>

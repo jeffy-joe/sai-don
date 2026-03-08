@@ -21,9 +21,7 @@ export default function CalculatorPage() {
               <span className="text-xl font-black tracking-tighter">CloudCalc<span className="text-primary">Pro</span></span>
             </Link>
             
-            <div className="flex items-center gap-4">
-              <button className="h-9 px-4 bg-primary text-white text-xs font-bold rounded-full hover:bg-primary/90 transition-all">Export PDF</button>
-            </div>
+            {/* Navigation and "Export PDF" button removed as requested */}
           </div>
         </header>
 
