@@ -1,14 +1,15 @@
 "use client"
 
 import React from 'react';
-import { useCalculator } from './CalculatorContext';
+import { useCalculator, CURRENCY_SYMBOLS } from './CalculatorContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import { TrendingUp, Calendar, Zap } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
+import { Calendar, Zap } from 'lucide-react';
 import { AIOptimizer } from './AIOptimizer';
 
 export function CostSummary() {
-  const { totalMonthlyCost, providerCosts, categoryCosts } = useCalculator();
+  const { totalMonthlyCost, providerCosts, categoryCosts, currency } = useCalculator();
+  const symbol = CURRENCY_SYMBOLS[currency];
 
   const providerData = Object.entries(providerCosts).map(([name, value]) => ({ name, value }));
   const categoryData = Object.entries(categoryCosts).map(([name, value]) => ({ name, value }));
@@ -16,23 +17,23 @@ export function CostSummary() {
   const COLORS = ['#527EF0', '#69E0FF', '#FF8042', '#00C49F', '#FFBB28'];
 
   return (
-    <div className="space-y-6 lg:sticky lg:top-8">
+    <div className="space-y-6 lg:sticky lg:top-24">
       <Card className="glass-card border-primary/20 overflow-hidden relative">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-bold text-muted-foreground uppercase tracking-widest flex items-center gap-2">
-            <Zap className="w-4 h-4 text-accent" /> Total Estimate
+            <Zap className="w-4 h-4 text-accent" /> Total Estimate ({currency})
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <div className="text-5xl font-mono font-black text-foreground">
-              ${totalMonthlyCost.toFixed(2)}
+            <div className="text-4xl xl:text-5xl font-mono font-black text-foreground break-all">
+              {symbol}{totalMonthlyCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               <span className="text-lg font-medium text-muted-foreground ml-2">/mo</span>
             </div>
             <div className="text-muted-foreground flex items-center gap-1.5 mt-2">
               <Calendar className="w-4 h-4" />
-              Yearly: <span className="font-bold text-foreground">${(totalMonthlyCost * 12).toFixed(2)}</span>
+              Yearly: <span className="font-bold text-foreground">{symbol}{(totalMonthlyCost * 12).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
           </div>
           
@@ -57,6 +58,7 @@ export function CostSummary() {
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#191E27', border: 'none', borderRadius: '8px' }}
                     itemStyle={{ color: '#fff' }}
+                    formatter={(value: number) => [`${symbol}${value.toFixed(2)}`, 'Cost']}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -87,6 +89,7 @@ export function CostSummary() {
                 <Tooltip
                   cursor={{ fill: 'rgba(255,255,255,0.05)' }}
                   contentStyle={{ backgroundColor: '#191E27', border: 'none', borderRadius: '8px' }}
+                  formatter={(value: number) => [`${symbol}${value.toFixed(2)}`, 'Cost']}
                 />
                 <Bar dataKey="value" fill="#527EF0" radius={[0, 4, 4, 0]} barSize={12} />
               </BarChart>

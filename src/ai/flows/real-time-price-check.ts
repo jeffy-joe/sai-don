@@ -13,11 +13,12 @@ const RealTimePriceInputSchema = z.object({
   instanceType: z.string().optional(),
   region: z.string(),
   category: z.string(),
+  currency: z.string().describe('The currency to return the price in (e.g., USD, EUR, INR, GBP).'),
 });
 export type RealTimePriceInput = z.infer<typeof RealTimePriceInputSchema>;
 
 const RealTimePriceOutputSchema = z.object({
-  price: z.number().describe('The verified current price for the service.'),
+  price: z.number().describe('The verified current price for the service in the requested currency.'),
   pricingUnit: z.string().describe('The unit of pricing (e.g., hour, GB/month).'),
   lastVerified: z.string().describe('The timestamp of verification.'),
   confidence: z.number().describe('Confidence score of the price accuracy (0-1).'),
@@ -36,9 +37,10 @@ Service: {{{serviceName}}}
 {{#if instanceType}}Instance Type: {{{instanceType}}}{{/if}}
 Region: {{{region}}}
 Category: {{{category}}}
+Requested Currency: {{{currency}}}
 
 Rules:
-1. Provide the most accurate current market price.
+1. Provide the most accurate current market price converted to {{{currency}}}.
 2. If it's a compute instance, provide the hourly price.
 3. If it's storage, provide the price per GB per month.
 4. Ensure the output is a raw number (no currency symbols).

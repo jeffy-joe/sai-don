@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { useCalculator } from './CalculatorContext';
+import { useCalculator, CURRENCY_SYMBOLS } from './CalculatorContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,14 +10,15 @@ import { Trash2, Users, Clock, Server, Loader2, Sparkles } from 'lucide-react';
 import { ServicePicker } from './ServicePicker';
 
 export function ArchitectureBuilder() {
-  const { selectedServices, removeService, updateServiceUsage, updateServiceQuantity } = useCalculator();
+  const { selectedServices, removeService, updateServiceUsage, updateServiceQuantity, currency } = useCalculator();
+  const symbol = CURRENCY_SYMBOLS[currency];
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Infrastructure Design</h2>
-          <p className="text-muted-foreground">AI automatically fetches the most accurate real-time pricing for your design.</p>
+          <p className="text-muted-foreground">AI automatically fetches the most accurate real-time pricing for your design in <span className="text-primary font-bold">{currency}</span>.</p>
         </div>
       </div>
 
@@ -48,11 +49,11 @@ export function ArchitectureBuilder() {
                       <p className="text-xs font-medium text-accent uppercase tracking-widest">{instance.region}</p>
                       {instance.isVerifying ? (
                         <span className="text-[10px] text-muted-foreground animate-pulse flex items-center gap-1">
-                          <Sparkles className="w-2.5 h-2.5" /> Fetching real-time price...
+                          <Sparkles className="w-2.5 h-2.5" /> Fetching real-time {currency} price...
                         </span>
                       ) : (
                         <span className="text-[10px] text-primary font-bold flex items-center gap-1">
-                          <Sparkles className="w-2.5 h-2.5" /> AI Verified Live Price
+                          <Sparkles className="w-2.5 h-2.5" /> AI Verified {currency} Price
                         </span>
                       )}
                     </div>
@@ -95,13 +96,13 @@ export function ArchitectureBuilder() {
                   </div>
 
                   <div className="flex items-center gap-4 pl-4 border-l border-white/10">
-                    <div className="text-right">
+                    <div className="text-right min-w-[100px]">
                       <p className="text-xs text-muted-foreground uppercase font-bold">Subtotal</p>
                       <p className="text-xl font-mono font-bold text-primary">
                         {instance.isVerifying ? (
                           <span className="opacity-50">...</span>
                         ) : (
-                          `$${((instance.unit_multiplier ? (instance.usageValue / instance.unit_multiplier) : instance.usageValue) * instance.price * instance.quantity).toFixed(2)}`
+                          `${symbol}${((instance.unit_multiplier ? (instance.usageValue / instance.unit_multiplier) : instance.usageValue) * instance.price * instance.quantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
                         )}
                       </p>
                     </div>
@@ -130,7 +131,7 @@ export function ArchitectureBuilder() {
             <div>
               <h3 className="text-xl font-bold">No services added yet</h3>
               <p className="text-muted-foreground max-sm mx-auto">
-                Add services from the catalog. Gemini will instantly fetch live market pricing for your selections.
+                Add services from the catalog. Gemini will instantly fetch live market pricing for your selections in your preferred currency.
               </p>
             </div>
           </div>

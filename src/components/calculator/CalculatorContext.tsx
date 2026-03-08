@@ -1,8 +1,17 @@
 "use client"
 
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
 import { PricingService } from '@/lib/pricing-data';
 import { getRealTimePrice } from '@/ai/flows/real-time-price-check';
+
+export type CurrencyCode = 'USD' | 'EUR' | 'INR' | 'GBP';
+
+export const CURRENCY_SYMBOLS: Record<CurrencyCode, string> = {
+  USD: '$',
+  EUR: '€',
+  INR: '₹',
+  GBP: '£',
+};
 
 export interface ServiceInstance extends PricingService {
   instanceId: string;
@@ -13,6 +22,8 @@ export interface ServiceInstance extends PricingService {
 
 interface CalculatorContextType {
   selectedServices: ServiceInstance[];
+  currency: CurrencyCode;
+  setCurrency: (currency: CurrencyCode) => void;
   addService: (service: PricingService) => void;
   removeService: (instanceId: string) => void;
   updateServiceUsage: (instanceId: string, usage: number) => void;
@@ -28,6 +39,7 @@ const CalculatorContext = createContext<CalculatorContextType | undefined>(undef
 
 export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [selectedServices, setSelectedServices] = useState<ServiceInstance[]>([]);
+  const [currency, setCurrency] = useState<CurrencyCode>('USD');
 
   const updateServicePrice = (instanceId: string, newPrice: number) => {
     setSelectedServices(prev => prev.map(s => 
@@ -41,6 +53,35 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     ));
   };
 
+  // Trigger re-fetch for all services when currency changes
+  useEffect(() => {
+    if (selectedServices.length === 0) return;
+
+    const reFetchAll = async () => {
+      const promises = selectedServices.map(async (service) => {
+        setServiceVerifying(service.instanceId, true);
+        try {
+          const result = await getRealTimePrice({
+            provider: service.provider,
+            serviceName: service.service_name,
+            instanceType: service.instance_type,
+            region: service.region,
+            category: service.category,
+            currency: currency
+          });
+          updateServicePrice(service.instanceId, result.price);
+        } catch (error) {
+          console.error("Currency update fetch failed:", error);
+        } finally {
+          setServiceVerifying(service.instanceId, false);
+        }
+      });
+      await Promise.all(promises);
+    };
+
+    reFetchAll();
+  }, [currency]);
+
   const addService = async (service: PricingService) => {
     const instanceId = Math.random().toString(36).substr(2, 9);
     const defaultUsage = service.billing_cycle === 'hour' ? 730 : 1;
@@ -51,19 +92,19 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       quantity: 1,
       usageValue: defaultUsage,
       isVerifying: true,
-      price: 0, // Reset to 0 as we only use live data
+      price: 0, 
     };
     
     setSelectedServices(prev => [...prev, newInstance]);
 
-    // Automatically trigger AI fetch on add
     try {
       const result = await getRealTimePrice({
         provider: service.provider,
         serviceName: service.service_name,
         instanceType: service.instance_type,
         region: service.region,
-        category: service.category
+        category: service.category,
+        currency: currency
       });
       
       updateServicePrice(instanceId, result.price);
@@ -123,6 +164,8 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   return (
     <CalculatorContext.Provider value={{
       selectedServices,
+      currency,
+      setCurrency,
       addService,
       removeService,
       updateServiceUsage,
