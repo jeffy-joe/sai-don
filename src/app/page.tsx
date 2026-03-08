@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Cloud, Zap, Shield, BarChart3, ArrowRight, CheckCircle2, Globe, Server } from 'lucide-react';
+import { Cloud, Zap, Shield, BarChart3, ArrowRight, Globe, Server } from 'lucide-react';
 
 export default function LandingPage() {
   return (
@@ -17,20 +17,11 @@ export default function LandingPage() {
           </div>
           
           <nav className="hidden md:flex items-center gap-10">
-            <Link href="#features" className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">Features</Link>
             <Link href="#pricing" className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">Supported Clouds</Link>
-            <Link href="#about" className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">About</Link>
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link href="/calculator">
-              <Button variant="ghost" className="hidden sm:inline-flex font-bold">Try Simulator</Button>
-            </Link>
-            <Link href="/calculator">
-              <Button className="rounded-full px-6 font-bold shadow-lg shadow-primary/20 bg-primary hover:bg-primary/90">
-                Go to Calculator
-              </Button>
-            </Link>
+            {/* Header buttons removed as requested */}
           </div>
         </div>
       </header>
