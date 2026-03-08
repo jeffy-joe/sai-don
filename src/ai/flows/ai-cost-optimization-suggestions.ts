@@ -93,7 +93,11 @@ const pricingDataJson = `
 
   { "provider": "AWS", "category": "Security Services", "service_name": "WAF", "price_per_acl": 5.00 },
   { "provider": "Microsoft Azure", "category": "Security Services", "service_name": "WAF", "price_per_month": 20.00 },
-  { "provider": "Google Cloud Platform", "category": "Security Services", "service_name": "Cloud Armor", "price_per_policy": 5.00 }
+  { "provider": "Google Cloud Platform", "category": "Security Services", "service_name": "Cloud Armor", "price_per_policy": 5.00 },
+
+  { "provider": "AWS", "category": "Messaging & Integration", "service_name": "SQS", "price_per_million": 0.40 },
+  { "provider": "Microsoft Azure", "category": "Messaging & Integration", "service_name": "Service Bus", "price_per_month": 10.00 },
+  { "provider": "Google Cloud Platform", "category": "Messaging & Integration", "service_name": "Pub/Sub", "price_per_tb": 40.00 }
 ]
 `;
 
@@ -115,10 +119,11 @@ User Infrastructure:
 
 Rules:
 1. Focus on comparing similar service types across providers or within the same provider.
-2. For DevOps/CI/CD, compare build minute costs where applicable.
-3. Suggest tiering down for cold storage if descriptions imply infrequent access.
-4. For Monitoring, compare ingestion rates across providers.
-5. For Security Services, consider WAF costs which can scale per policy or per month.
+2. For Messaging, compare SQS million-request costs vs monthly service bus fees or Pub/Sub throughput costs.
+3. For DevOps/CI/CD, compare build minute costs where applicable.
+4. Suggest tiering down for cold storage if descriptions imply infrequent access.
+5. For Monitoring, compare ingestion rates across providers.
+6. For Security Services, consider WAF costs which can scale per policy or per month.
 `
 });
 

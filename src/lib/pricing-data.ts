@@ -156,5 +156,10 @@ export const CLOUD_SERVICES: PricingService[] = [
   // Security Services
   { id: 'aws-waf', provider: 'AWS', category: 'Security Services', service_name: 'WAF', description: 'Web ACL', price: 5.00, pricing_unit: 'Web ACL/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Web ACLs' },
   { id: 'azure-waf', provider: 'Microsoft Azure', category: 'Security Services', service_name: 'WAF', description: 'Monthly fee', price: 20.00, pricing_unit: 'month', billing_cycle: 'month', region: 'East US' },
-  { id: 'gcp-armor', provider: 'Google Cloud Platform', category: 'Security Services', service_name: 'Cloud Armor', description: 'Policy fee', price: 5.00, pricing_unit: 'policy/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Policies' }
+  { id: 'gcp-armor', provider: 'Google Cloud Platform', category: 'Security Services', service_name: 'Cloud Armor', description: 'Policy fee', price: 5.00, pricing_unit: 'policy/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Policies' },
+
+  // Messaging & Integration
+  { id: 'aws-sqs-requests', provider: 'AWS', category: 'Messaging & Integration', service_name: 'SQS', description: 'Standard Queue requests', price: 0.40, pricing_unit: '1M requests', billing_cycle: 'unit', region: 'us-east-1', unit_multiplier: 1000000, input_label: 'Million Requests' },
+  { id: 'azure-service-bus', provider: 'Microsoft Azure', category: 'Messaging & Integration', service_name: 'Service Bus', description: 'Standard tier', price: 10.00, pricing_unit: 'month', billing_cycle: 'month', region: 'East US' },
+  { id: 'gcp-pubsub-data', provider: 'Google Cloud Platform', category: 'Messaging & Integration', service_name: 'Pub/Sub', description: 'Data ingestion', price: 40.00, pricing_unit: 'TB', billing_cycle: 'unit', region: 'us-central1', input_label: 'Data (TB)' }
 ];
