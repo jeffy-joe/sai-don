@@ -10,42 +10,42 @@
     --card-foreground: 275 40% 10%;
     --popover: 0 0% 100%;
     --popover-foreground: 275 40% 10%;
-    --primary: 275 100% 65%;
+    --primary: 275 100% 80%;
     --primary-foreground: 275 10% 98%;
     --secondary: 275 20% 96%;
     --secondary-foreground: 275 40% 10%;
     --muted: 275 20% 94%;
     --muted-foreground: 275 15% 45%;
-    --accent: 285 100% 80%;
+    --accent: 285 100% 85%;
     --accent-foreground: 275 40% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 275 20% 90%;
     --input: 275 20% 90%;
-    --ring: 275 100% 65%;
-    --radius: 0.75rem;
+    --ring: 275 100% 80%;
+    --radius: 1rem;
   }
 
   .dark {
-    --background: 275 35% 3%;
+    --background: 275 40% 2%;
     --foreground: 275 10% 98%;
-    --card: 275 35% 6%;
+    --card: 275 40% 4%;
     --card-foreground: 275 10% 98%;
-    --popover: 275 35% 3%;
+    --popover: 275 40% 2%;
     --popover-foreground: 275 10% 98%;
-    --primary: 275 100% 75%;
+    --primary: 275 100% 80%;
     --primary-foreground: 275 10% 5%;
-    --secondary: 275 25% 10%;
+    --secondary: 275 30% 8%;
     --secondary-foreground: 275 10% 98%;
-    --muted: 275 25% 10%;
+    --muted: 275 30% 8%;
     --muted-foreground: 275 15% 65%;
     --accent: 285 100% 85%;
     --accent-foreground: 275 40% 10%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 275 20% 12%;
-    --input: 275 20% 12%;
-    --ring: 275 100% 75%;
+    --border: 275 20% 10%;
+    --input: 275 20% 10%;
+    --ring: 275 100% 80%;
   }
 }
 
@@ -59,10 +59,10 @@
 }
 
 .glass-card {
-  @apply bg-card/60 backdrop-blur-lg border border-white/5 shadow-xl;
+  @apply bg-card/40 backdrop-blur-xl border border-white/5 shadow-2xl;
 }
 
 .gradient-bg {
-  background: radial-gradient(circle at top left, hsla(275, 100%, 75%, 0.15), transparent),
-              radial-gradient(circle at bottom right, hsla(285, 100%, 85%, 0.1), transparent);
+  background: radial-gradient(circle at top left, hsla(275, 100%, 80%, 0.12), transparent),
+              radial-gradient(circle at bottom right, hsla(285, 100%, 85%, 0.08), transparent);
 }
