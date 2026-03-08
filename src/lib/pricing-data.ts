@@ -109,10 +109,29 @@ export const CLOUD_SERVICES: PricingService[] = [
   { id: 'gcp-pd-standard', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Persistent Disk Standard', price: 0.04, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Size (GB)' },
   { id: 'gcp-pd-ssd', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Persistent Disk SSD', price: 0.17, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Size (GB)' },
 
-  // Database
-  { id: 'aws-rds-mysql', provider: 'AWS', category: 'Database', service_name: 'RDS MySQL', instance_type: 'db.t3.micro', price: 0.017, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  // Database - AWS RDS
+  { id: 'aws-rds-mysql-micro', provider: 'AWS', category: 'Database', service_name: 'RDS MySQL', instance_type: 'db.t3.micro', price: 0.017, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-rds-postgres-small', provider: 'AWS', category: 'Database', service_name: 'RDS PostgreSQL', instance_type: 'db.t3.small', price: 0.034, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  
+  // Database - AWS DynamoDB
+  { id: 'aws-dynamodb-writes', provider: 'AWS', category: 'Database', service_name: 'DynamoDB Writes', price: 1.25, pricing_unit: '1M writes', billing_cycle: 'unit', region: 'us-east-1', unit_multiplier: 1000000, input_label: 'Million Writes' },
+  { id: 'aws-dynamodb-reads', provider: 'AWS', category: 'Database', service_name: 'DynamoDB Reads', price: 0.25, pricing_unit: '1M reads', billing_cycle: 'unit', region: 'us-east-1', unit_multiplier: 1000000, input_label: 'Million Reads' },
+
+  // Database - Azure SQL
   { id: 'azure-sql-basic', provider: 'Microsoft Azure', category: 'Database', service_name: 'SQL Database Basic', price: 5.00, pricing_unit: 'month', billing_cycle: 'month', region: 'East US' },
+  { id: 'azure-sql-standard', provider: 'Microsoft Azure', category: 'Database', service_name: 'SQL Database Standard', price: 15.00, pricing_unit: 'month', billing_cycle: 'month', region: 'East US' },
+  { id: 'azure-sql-premium', provider: 'Microsoft Azure', category: 'Database', service_name: 'SQL Database Premium', price: 465.00, pricing_unit: 'month', billing_cycle: 'month', region: 'East US' },
+  
+  // Database - Azure Cosmos
+  { id: 'azure-cosmos-ru', provider: 'Microsoft Azure', category: 'Database', service_name: 'Cosmos DB', description: 'Request Units (RU/s)', price: 0.008, pricing_unit: '100 RU/s hour', billing_cycle: 'hour', region: 'East US', unit_multiplier: 1, input_label: '100 RU/s Blocks' },
+
+  // Database - GCP SQL
   { id: 'gcp-sql-micro', provider: 'Google Cloud Platform', category: 'Database', service_name: 'Cloud SQL', instance_type: 'db-f1-micro', price: 0.015, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  { id: 'gcp-sql-small', provider: 'Google Cloud Platform', category: 'Database', service_name: 'Cloud SQL', instance_type: 'db-g1-small', price: 0.025, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  
+  // Database - GCP Firestore
+  { id: 'gcp-firestore-writes', provider: 'Google Cloud Platform', category: 'Database', service_name: 'Firestore Writes', price: 0.18, pricing_unit: '100k writes', billing_cycle: 'unit', region: 'us-central1', unit_multiplier: 100000, input_label: '100k Write Ops' },
+  { id: 'gcp-firestore-reads', provider: 'Google Cloud Platform', category: 'Database', service_name: 'Firestore Reads', price: 0.06, pricing_unit: '100k reads', billing_cycle: 'unit', region: 'us-central1', unit_multiplier: 100000, input_label: '100k Read Ops' },
 
   // Containers
   { id: 'aws-eks', provider: 'AWS', category: 'Containers & Kubernetes', service_name: 'EKS', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'us-east-1' },
