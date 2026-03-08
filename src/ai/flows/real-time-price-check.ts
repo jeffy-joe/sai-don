@@ -2,6 +2,7 @@
 
 /**
  * @fileOverview A flow that uses Gemini to fetch "real-time" cloud pricing data for a specific service.
+ * It is explicitly instructed to handle currency conversion using current market data.
  */
 
 import { ai } from '@/ai/genkit';
@@ -40,11 +41,12 @@ Category: {{{category}}}
 Requested Currency: {{{currency}}}
 
 Rules:
-1. Provide the most accurate current market price converted to {{{currency}}}.
-2. If it's a compute instance, provide the hourly price.
-3. If it's storage, provide the price per GB per month.
-4. Ensure the output is a raw number (no currency symbols).
-5. If the exact instance is discontinued, provide the price of its direct successor.
+1. Provide the most accurate current market price converted directly to {{{currency}}}.
+2. Do NOT use a hardcoded formula; instead, use your knowledge of today's market values and current exchange rates for {{{currency}}}.
+3. If it's a compute instance, provide the hourly price.
+4. If it's storage, provide the price per GB per month.
+5. Ensure the output price is a raw number representing the cost in {{{currency}}}.
+6. If the exact instance is discontinued, provide the price of its direct successor.
 `,
 });
 

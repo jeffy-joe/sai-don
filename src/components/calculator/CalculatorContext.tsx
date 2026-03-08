@@ -53,7 +53,7 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     ));
   };
 
-  // Trigger re-fetch for all services when currency changes
+  // Re-fetch all pricing from Gemini whenever the currency changes
   useEffect(() => {
     if (selectedServices.length === 0) return;
 
@@ -71,7 +71,7 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
           });
           updateServicePrice(service.instanceId, result.price);
         } catch (error) {
-          console.error("Currency update fetch failed:", error);
+          console.error("AI currency conversion failed:", error);
         } finally {
           setServiceVerifying(service.instanceId, false);
         }
@@ -109,7 +109,7 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       
       updateServicePrice(instanceId, result.price);
     } catch (error) {
-      console.error("AI Price Fetch Failed:", error);
+      console.error("Initial AI Price Fetch Failed:", error);
     } finally {
       setServiceVerifying(instanceId, false);
     }
