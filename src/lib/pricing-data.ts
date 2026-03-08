@@ -1,0 +1,72 @@
+export type Provider = 'AWS' | 'Microsoft Azure' | 'Google Cloud Platform';
+
+export type Category =
+  | 'Compute'
+  | 'Storage'
+  | 'Database'
+  | 'Networking'
+  | 'Containers & Kubernetes'
+  | 'AI / Machine Learning'
+  | 'Analytics / Big Data'
+  | 'DevOps & CI/CD'
+  | 'Monitoring & Logging'
+  | 'Security Services'
+  | 'CDN & Edge'
+  | 'Messaging & Integration';
+
+export interface PricingService {
+  id: string;
+  provider: Provider;
+  category: Category;
+  service_name: string;
+  instance_type?: string;
+  vCPU?: number;
+  RAM?: string;
+  price: number;
+  pricing_unit: string;
+  billing_cycle: 'hour' | 'month' | 'unit';
+  region: string;
+  description?: string;
+  input_label?: string;
+  unit_multiplier?: number;
+}
+
+export const CLOUD_SERVICES: PricingService[] = [
+  // AWS Compute
+  { id: 'aws-ec2-t3nano', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.nano', vCPU: 2, RAM: '0.5GB', price: 0.0052, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-t3micro', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.micro', vCPU: 2, RAM: '1GB', price: 0.0104, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-t3small', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.small', vCPU: 2, RAM: '2GB', price: 0.0208, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-t3medium', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.medium', vCPU: 2, RAM: '4GB', price: 0.0416, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-t3large', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.large', vCPU: 2, RAM: '8GB', price: 0.0832, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-c5large', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'c5.large', vCPU: 2, RAM: '4GB', price: 0.085, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-lambda-requests', provider: 'AWS', category: 'Compute', service_name: 'Lambda', description: 'Requests per month', price: 0.20, pricing_unit: '1M requests', billing_cycle: 'unit', region: 'us-east-1', unit_multiplier: 1000000, input_label: 'Requests' },
+  
+  // Azure Compute
+  { id: 'azure-vm-b1s', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'B1s', vCPU: 1, RAM: '1GB', price: 0.012, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  { id: 'azure-vm-b2s', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'B2s', vCPU: 2, RAM: '4GB', price: 0.046, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  { id: 'azure-functions', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Azure Functions', description: 'Execution pricing', price: 0.20, pricing_unit: '1M executions', billing_cycle: 'unit', region: 'East US', unit_multiplier: 1000000, input_label: 'Executions' },
+
+  // GCP Compute
+  { id: 'gcp-ce-micro', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-micro', price: 0.008, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  { id: 'gcp-ce-small', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-small', price: 0.017, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+
+  // Storage
+  { id: 'aws-s3-standard', provider: 'AWS', category: 'Storage', service_name: 'S3 Standard', price: 0.023, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Storage (GB)' },
+  { id: 'azure-blob-hot', provider: 'Microsoft Azure', category: 'Storage', service_name: 'Blob Storage Hot', price: 0.0184, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'East US', input_label: 'Storage (GB)' },
+  { id: 'gcp-storage-standard', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Cloud Storage Standard', price: 0.020, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Storage (GB)' },
+
+  // Database
+  { id: 'aws-rds-mysql', provider: 'AWS', category: 'Database', service_name: 'RDS MySQL', instance_type: 'db.t3.micro', price: 0.017, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'azure-sql-basic', provider: 'Microsoft Azure', category: 'Database', service_name: 'SQL Database Basic', price: 5.00, pricing_unit: 'month', billing_cycle: 'month', region: 'East US' },
+  { id: 'gcp-sql-micro', provider: 'Google Cloud Platform', category: 'Database', service_name: 'Cloud SQL', instance_type: 'db-f1-micro', price: 0.015, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+
+  // Containers
+  { id: 'aws-eks', provider: 'AWS', category: 'Containers & Kubernetes', service_name: 'EKS', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'azure-aks', provider: 'Microsoft Azure', category: 'Containers & Kubernetes', service_name: 'AKS', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'East US' },
+  { id: 'gcp-gke', provider: 'Google Cloud Platform', category: 'Containers & Kubernetes', service_name: 'GKE', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'us-central1' },
+
+  // Networking
+  { id: 'aws-data-out', provider: 'AWS', category: 'Networking', service_name: 'Data Transfer Out', price: 0.09, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
+  { id: 'azure-data-out', provider: 'Microsoft Azure', category: 'Networking', service_name: 'Data Transfer Out', price: 0.087, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
+  { id: 'gcp-data-out', provider: 'Google Cloud Platform', category: 'Networking', service_name: 'Data Transfer Out', price: 0.085, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' }
+];
