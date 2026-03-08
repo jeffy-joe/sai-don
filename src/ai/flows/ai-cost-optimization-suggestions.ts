@@ -59,33 +59,50 @@ export type AICostOptimizationSuggestionsOutput = z.infer<typeof AICostOptimizat
 // The comprehensive pricing data for various cloud services.
 const pricingDataJson = `
 [
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.nano", "vCPU": 2, "RAM": "0.5GB", "price_per_hour": 0.0052, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.micro", "vCPU": 2, "RAM": "1GB", "price_per_hour": 0.0104, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.small", "vCPU": 2, "RAM": "2GB", "price_per_hour": 0.0208, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.medium", "vCPU": 2, "RAM": "4GB", "price_per_hour": 0.0416, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.large", "vCPU": 2, "RAM": "8GB", "price_per_hour": 0.0832, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.large", "vCPU": 2, "RAM": "4GB", "price_per_hour": 0.085, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.xlarge", "vCPU": 4, "RAM": "8GB", "price_per_hour": 0.17, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.2xlarge", "vCPU": 8, "RAM": "16GB", "price_per_hour": 0.34, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "r5.large", "vCPU": 2, "RAM": "16GB", "price_per_hour": 0.126, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "r5.xlarge", "vCPU": 4, "RAM": "32GB", "price_per_hour": 0.252, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "g4dn.xlarge", "GPU": "NVIDIA T4", "price_per_hour": 0.526, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "p3.2xlarge", "GPU": "NVIDIA V100", "price_per_hour": 3.06, "billing_cycle": "hour", "region": "us-east-1" },
-  { "provider": "AWS", "category": "Compute", "service_name": "Lambda", "resource_type": "requests", "price_per_unit": 0.20, "unit_description": "per 1 million requests", "billing_cycle": "month", "unit_multiplier": 1000000 },
-  { "provider": "AWS", "category": "Compute", "service_name": "Lambda", "resource_type": "compute_duration", "price_per_unit": 0.00001667, "unit_description": "per GB-second", "billing_cycle": "month" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.nano", "vCPU": 2, "RAM": "0.5GB", "price_per_hour": 0.0052, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.micro", "vCPU": 2, "RAM": "1GB", "price_per_hour": 0.0104, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.small", "vCPU": 2, "RAM": "2GB", "price_per_hour": 0.0208, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.medium", "vCPU": 2, "RAM": "4GB", "price_per_hour": 0.0416, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.large", "vCPU": 2, "RAM": "8GB", "price_per_hour": 0.0832, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.large", "vCPU": 2, "RAM": "4GB", "price_per_hour": 0.085, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.xlarge", "vCPU": 4, "RAM": "8GB", "price_per_hour": 0.17, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.2xlarge", "vCPU": 8, "RAM": "16GB", "price_per_hour": 0.34, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "r5.large", "vCPU": 2, "RAM": "16GB", "price_per_hour": 0.126, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "r5.xlarge", "vCPU": 4, "RAM": "32GB", "price_per_hour": 0.252, "billing_cycle": "hour" },
+  { "provider": "AWS", "category": "Compute", "service_name": "Lambda", "resource_type": "requests", "price_per_unit": 0.20, "unit_multiplier": 1000000 },
+  { "provider": "AWS", "category": "Compute", "service_name": "Lambda", "resource_type": "duration", "price_per_unit": 0.00001667 },
+  
   { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "B1s", "vCPU": 1, "RAM": "1GB", "price_per_hour": 0.012, "billing_cycle": "hour" },
   { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "B2s", "vCPU": 2, "RAM": "4GB", "price_per_hour": 0.046, "billing_cycle": "hour" },
   { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "D2s v3", "vCPU": 2, "RAM": "8GB", "price_per_hour": 0.096, "billing_cycle": "hour" },
   { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "D4s v3", "vCPU": 4, "RAM": "16GB", "price_per_hour": 0.192, "billing_cycle": "hour" },
-  { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "F2", "vCPU": 2, "RAM": "4GB", "price_per_hour": 0.085, "billing_cycle": "hour" },
-  { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "F4", "vCPU": 4, "RAM": "8GB", "price_per_hour": 0.169, "billing_cycle": "hour" },
-  { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Azure Functions", "resource_type": "executions", "price_per_unit": 0.20, "unit_description": "per 1 million executions", "billing_cycle": "month", "unit_multiplier": 1000000 },
+  { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Azure Functions", "price_per_unit": 0.20, "unit_multiplier": 1000000 },
+
   { "provider": "Google Cloud Platform", "category": "Compute", "service_name": "Compute Engine", "instance_type": "e2-micro", "price_per_hour": 0.008, "billing_cycle": "hour" },
   { "provider": "Google Cloud Platform", "category": "Compute", "service_name": "Compute Engine", "instance_type": "e2-small", "price_per_hour": 0.017, "billing_cycle": "hour" },
   { "provider": "Google Cloud Platform", "category": "Compute", "service_name": "Compute Engine", "instance_type": "e2-medium", "price_per_hour": 0.033, "billing_cycle": "hour" },
   { "provider": "Google Cloud Platform", "category": "Compute", "service_name": "Compute Engine", "instance_type": "n2-standard-2", "price_per_hour": 0.097, "billing_cycle": "hour" },
   { "provider": "Google Cloud Platform", "category": "Compute", "service_name": "Compute Engine", "instance_type": "n2-standard-4", "price_per_hour": 0.194, "billing_cycle": "hour" },
-  { "provider": "Google Cloud Platform", "category": "Compute", "service_name": "GPU Instances", "GPU": "NVIDIA T4 GPU", "price_per_hour": 0.35, "billing_cycle": "hour" }
+
+  { "provider": "AWS", "category": "Storage", "service_name": "S3 Standard", "price_per_gb_month": 0.023 },
+  { "provider": "AWS", "category": "Storage", "service_name": "S3 Standard-IA", "price_per_gb_month": 0.0125 },
+  { "provider": "AWS", "category": "Storage", "service_name": "S3 Glacier", "price_per_gb_month": 0.004 },
+  { "provider": "AWS", "category": "Storage", "service_name": "S3 Deep Archive", "price_per_gb_month": 0.00099 },
+  { "provider": "AWS", "category": "Storage", "service_name": "EBS GP SSD", "price_per_gb_month": 0.10 },
+  { "provider": "AWS", "category": "Storage", "service_name": "EBS PIOPS SSD", "price_per_gb_month": 0.125 },
+
+  { "provider": "Microsoft Azure", "category": "Storage", "service_name": "Blob Storage Hot", "price_per_gb_month": 0.0184 },
+  { "provider": "Microsoft Azure", "category": "Storage", "service_name": "Blob Storage Cool", "price_per_gb_month": 0.01 },
+  { "provider": "Microsoft Azure", "category": "Storage", "service_name": "Blob Storage Archive", "price_per_gb_month": 0.002 },
+  { "provider": "Microsoft Azure", "category": "Storage", "service_name": "Managed Disk Standard HDD", "price_per_gb_month": 0.05 },
+  { "provider": "Microsoft Azure", "category": "Storage", "service_name": "Managed Disk Premium SSD", "price_per_gb_month": 0.12 },
+
+  { "provider": "Google Cloud Platform", "category": "Storage", "service_name": "Cloud Storage Standard", "price_per_gb_month": 0.020 },
+  { "provider": "Google Cloud Platform", "category": "Storage", "service_name": "Cloud Storage Nearline", "price_per_gb_month": 0.010 },
+  { "provider": "Google Cloud Platform", "category": "Storage", "service_name": "Cloud Storage Coldline", "price_per_gb_month": 0.004 },
+  { "provider": "Google Cloud Platform", "category": "Storage", "service_name": "Cloud Storage Archive", "price_per_gb_month": 0.0012 },
+  { "provider": "Google Cloud Platform", "category": "Storage", "service_name": "Persistent Disk Standard", "price_per_gb_month": 0.04 },
+  { "provider": "Google Cloud Platform", "category": "Storage", "service_name": "Persistent Disk SSD", "price_per_gb_month": 0.17 }
 ]
 `;
 
@@ -112,18 +129,13 @@ Instructions for your analysis:
 2.  Review each service in the parsed 'currentInfrastructure' array.
 3.  For each service, identify alternative service configurations or instance types (either within the same provider or a different one) that offer similar functionality but at a lower monthly cost.
 4.  **Crucially, use the 'usage_details' for each service in 'currentInfrastructure' to accurately calculate the estimated monthly cost of both the original service (if not explicitly provided, calculate it) and any suggested alternatives.**
-    *   **Hourly Services (e.g., EC2, Azure VMs, GCP Compute Engine, RDS, EKS, ECS, Load Balancers, SageMaker, EMR):** Assume 730 hours per month for calculations if 'hours_per_month' is not explicitly provided in 'usage_details'.
-        *   Cost = price_per_hour * hours_per_month * number_of_instances (if applicable).
-        *   Match vCPU and RAM requirements where possible.
-    *   **Usage-Based Services (e.g., Lambda, Azure Functions, S3, Blob Storage, Cloud Storage, DynamoDB, Firestore, Data Transfer Out, CDN, CodeBuild, Azure Monitor, CloudWatch, WAF, SQS, Pub/Sub, BigQuery, Athena):**
-        *   Calculate cost based on 'price_per_unit' and the relevant usage metric (e.g., 'storage_gb', 'requests_per_month', 'gb_seconds_per_month', 'writes_per_month', 'reads_per_month', 'data_transfer_gb_per_month', 'tb_scanned_per_month', 'build_minutes_per_month', 'metrics_per_month', 'gb_log_ingestion_per_month').
-        *   Be mindful of 'unit_multiplier' where a price is "per X" units (e.g., "per 1 million requests", "per 100 RU/s"). Divide the total usage by the unit_multiplier before multiplying by price_per_unit if unit_multiplier is present. For example, for "per 1 million requests" with 5 million requests, use (5,000,000 / 1,000,000) * price.
-    *   **Monthly Fixed Services (e.g., Azure SQL Database Basic, Standard, Premium, Azure DevOps, Azure WAF, Azure Service Bus, Security Services):**
-        *   Cost = price_per_month (if applicable).
-5.  Suggestions should aim to provide the same or comparable performance/capacity as the original service based on its 'description' and 'usage_details'. Avoid suggesting significantly underpowered or overpowered alternatives unless there's a clear cost advantage and the reason is explained.
+    *   **Hourly Services (e.g., EC2, Azure VMs, GCP Compute Engine, RDS):** Assume 730 hours per month for calculations if 'hours_per_month' is not explicitly provided.
+    *   **Storage Services (e.g., S3, EBS, Blob Storage, Persistent Disk):** Calculate monthly cost using 'price_per_gb_month' multiplied by the 'storage_gb' provided in usage_details.
+    *   **Usage-Based Services (e.g., Lambda, Azure Functions):** Divide total usage by 'unit_multiplier' before multiplying by 'price_per_unit'.
+5.  Suggestions should aim to provide the same or comparable performance/capacity as the original service based on its 'description' and 'usage_details'.
 6.  Prioritize suggestions that maintain the same cloud provider if a cost-effective option exists, but also consider cross-cloud alternatives if savings are substantial.
-7.  Ensure that the 'estimated_monthly_cost' for the 'suggestedService' in the output is accurately calculated based on the provided usage details and the pricing data.
-8.  Provide a clear 'reason' for each suggestion, explaining why it's more cost-effective.
+7.  Ensure that the 'estimated_monthly_cost' for the 'suggestedService' in the output is accurately calculated.
+8.  Provide a clear 'reason' for each suggestion.
 9.  Generate a concise 'summary' of the overall optimization potential found.
 10. Format your output strictly as a JSON object matching the AICostOptimizationSuggestionsOutputSchema.
 `

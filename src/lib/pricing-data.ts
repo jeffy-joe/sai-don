@@ -84,10 +84,30 @@ export const CLOUD_SERVICES: PricingService[] = [
   // GCP Compute - GPU
   { id: 'gcp-ce-gpu-t4', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'GPU Instance', instance_type: 'NVIDIA T4 GPU', price: 0.35, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
 
-  // Storage
+  // Storage - AWS S3
   { id: 'aws-s3-standard', provider: 'AWS', category: 'Storage', service_name: 'S3 Standard', price: 0.023, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Storage (GB)' },
+  { id: 'aws-s3-si', provider: 'AWS', category: 'Storage', service_name: 'S3 Standard-IA', price: 0.0125, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Storage (GB)' },
+  { id: 'aws-s3-glacier', provider: 'AWS', category: 'Storage', service_name: 'S3 Glacier', price: 0.004, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Storage (GB)' },
+  { id: 'aws-s3-deep-archive', provider: 'AWS', category: 'Storage', service_name: 'S3 Deep Archive', price: 0.00099, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Storage (GB)' },
+
+  // Storage - Azure Blob
   { id: 'azure-blob-hot', provider: 'Microsoft Azure', category: 'Storage', service_name: 'Blob Storage Hot', price: 0.0184, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'East US', input_label: 'Storage (GB)' },
+  { id: 'azure-blob-cool', provider: 'Microsoft Azure', category: 'Storage', service_name: 'Blob Storage Cool', price: 0.01, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'East US', input_label: 'Storage (GB)' },
+  { id: 'azure-blob-archive', provider: 'Microsoft Azure', category: 'Storage', service_name: 'Blob Storage Archive', price: 0.002, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'East US', input_label: 'Storage (GB)' },
+
+  // Storage - GCP Storage
   { id: 'gcp-storage-standard', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Cloud Storage Standard', price: 0.020, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Storage (GB)' },
+  { id: 'gcp-storage-nearline', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Cloud Storage Nearline', price: 0.010, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Storage (GB)' },
+  { id: 'gcp-storage-coldline', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Cloud Storage Coldline', price: 0.004, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Storage (GB)' },
+  { id: 'gcp-storage-archive', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Cloud Storage Archive', price: 0.0012, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Storage (GB)' },
+
+  // Block Storage
+  { id: 'aws-ebs-gp', provider: 'AWS', category: 'Storage', service_name: 'EBS GP SSD', price: 0.10, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Size (GB)' },
+  { id: 'aws-ebs-piops', provider: 'AWS', category: 'Storage', service_name: 'EBS PIOPS SSD', price: 0.125, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Size (GB)' },
+  { id: 'azure-disk-hdd', provider: 'Microsoft Azure', category: 'Storage', service_name: 'Managed Disk Standard HDD', price: 0.05, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'East US', input_label: 'Size (GB)' },
+  { id: 'azure-disk-ssd', provider: 'Microsoft Azure', category: 'Storage', service_name: 'Managed Disk Premium SSD', price: 0.12, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'East US', input_label: 'Size (GB)' },
+  { id: 'gcp-pd-standard', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Persistent Disk Standard', price: 0.04, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Size (GB)' },
+  { id: 'gcp-pd-ssd', provider: 'Google Cloud Platform', category: 'Storage', service_name: 'Persistent Disk SSD', price: 0.17, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Size (GB)' },
 
   // Database
   { id: 'aws-rds-mysql', provider: 'AWS', category: 'Database', service_name: 'RDS MySQL', instance_type: 'db.t3.micro', price: 0.017, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
