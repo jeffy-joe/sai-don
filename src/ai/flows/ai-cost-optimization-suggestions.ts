@@ -97,6 +97,10 @@ const pricingDataJson = `
   { "provider": "Microsoft Azure", "category": "AI / Machine Learning", "service_name": "Azure Machine Learning", "description": "Training compute", "price_per_hour": 0.10 },
   { "provider": "Google Cloud Platform", "category": "AI / Machine Learning", "service_name": "Vertex AI", "description": "Training compute", "price_per_hour": 0.11 },
 
+  { "provider": "AWS", "category": "Networking", "service_name": "Application Load Balancer", "price_per_hour": 0.0225 },
+  { "provider": "Microsoft Azure", "category": "Networking", "service_name": "Azure Load Balancer", "price_per_hour": 0.025 },
+  { "provider": "Google Cloud Platform", "category": "Networking", "service_name": "Cloud Load Balancer", "price_per_hour": 0.025 },
+
   { "provider": "AWS", "category": "DevOps & CI/CD", "service_name": "CodeBuild", "price_per_min": 0.005 },
   { "provider": "Microsoft Azure", "category": "DevOps & CI/CD", "service_name": "Azure DevOps", "price_per_user": 40.00 },
   { "provider": "Google Cloud Platform", "category": "DevOps & CI/CD", "service_name": "Cloud Build", "price_per_min": 0.003 },
@@ -146,6 +150,7 @@ Rules:
 8. For Containers, compare cluster management fees and ECS vCPU costs if applicable. Consider if serverless containers (ECS) might be cheaper for smaller workloads.
 9. For AI / Machine Learning, compare the hourly training compute costs between SageMaker, Azure ML, and Vertex AI.
 10. For Big Data & Analytics, compare the TB scanned pricing between Athena, Synapse, and BigQuery.
+11. For Networking, compare Load Balancer hourly rates across AWS, Azure, and GCP.
 `
 });
 

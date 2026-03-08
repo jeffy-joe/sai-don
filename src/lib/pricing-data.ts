@@ -154,6 +154,9 @@ export const CLOUD_SERVICES: PricingService[] = [
   { id: 'aws-data-out', provider: 'AWS', category: 'Networking', service_name: 'Data Transfer Out', price: 0.09, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
   { id: 'azure-data-out', provider: 'Microsoft Azure', category: 'Networking', service_name: 'Data Transfer Out', price: 0.087, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
   { id: 'gcp-data-out', provider: 'Google Cloud Platform', category: 'Networking', service_name: 'Data Transfer Out', price: 0.085, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
+  { id: 'aws-alb', provider: 'AWS', category: 'Networking', service_name: 'Application Load Balancer', price: 0.0225, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'azure-lb', provider: 'Microsoft Azure', category: 'Networking', service_name: 'Azure Load Balancer', price: 0.025, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  { id: 'gcp-lb', provider: 'Google Cloud Platform', category: 'Networking', service_name: 'Cloud Load Balancer', price: 0.025, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
 
   // DevOps & CI/CD
   { id: 'aws-codebuild', provider: 'AWS', category: 'DevOps & CI/CD', service_name: 'CodeBuild', price: 0.005, pricing_unit: 'build minute', billing_cycle: 'unit', region: 'us-east-1', input_label: 'Build Minutes' },
