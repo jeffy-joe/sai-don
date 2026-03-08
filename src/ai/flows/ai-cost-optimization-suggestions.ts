@@ -83,6 +83,11 @@ const pricingDataJson = `
   { "provider": "Microsoft Azure", "category": "Database", "service_name": "SQL DB Basic", "price_per_month": 5.00 },
   { "provider": "Google Cloud Platform", "category": "Database", "service_name": "Cloud SQL", "instance_type": "db-f1-micro", "price_per_hour": 0.015 },
 
+  { "provider": "AWS", "category": "Containers & Kubernetes", "service_name": "EKS", "price_per_hour": 0.10 },
+  { "provider": "AWS", "category": "Containers & Kubernetes", "service_name": "ECS", "price_per_vcpu_hour": 0.040 },
+  { "provider": "Microsoft Azure", "category": "Containers & Kubernetes", "service_name": "AKS", "price_per_hour": 0.10 },
+  { "provider": "Google Cloud Platform", "category": "Containers & Kubernetes", "service_name": "GKE", "price_per_hour": 0.10 },
+
   { "provider": "AWS", "category": "DevOps & CI/CD", "service_name": "CodeBuild", "price_per_min": 0.005 },
   { "provider": "Microsoft Azure", "category": "DevOps & CI/CD", "service_name": "Azure DevOps", "price_per_user": 40.00 },
   { "provider": "Google Cloud Platform", "category": "DevOps & CI/CD", "service_name": "Cloud Build", "price_per_min": 0.003 },
@@ -129,6 +134,7 @@ Rules:
 5. For Monitoring, compare ingestion rates across providers.
 6. For Security Services, consider WAF costs which can scale per policy or per month.
 7. For CDN, compare the price per GB transferred across providers.
+8. For Containers, compare cluster management fees and ECS vCPU costs if applicable. Consider if serverless containers (ECS) might be cheaper for smaller workloads.
 `
 });
 

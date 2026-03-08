@@ -135,6 +135,7 @@ export const CLOUD_SERVICES: PricingService[] = [
 
   // Containers
   { id: 'aws-eks', provider: 'AWS', category: 'Containers & Kubernetes', service_name: 'EKS', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ecs-vcpu', provider: 'AWS', category: 'Containers & Kubernetes', service_name: 'ECS', description: 'Compute cost', price: 0.040, pricing_unit: 'vCPU/hour', billing_cycle: 'hour', region: 'us-east-1', input_label: 'vCPU/hour' },
   { id: 'azure-aks', provider: 'Microsoft Azure', category: 'Containers & Kubernetes', service_name: 'AKS', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'East US' },
   { id: 'gcp-gke', provider: 'Google Cloud Platform', category: 'Containers & Kubernetes', service_name: 'GKE', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'us-central1' },
 
