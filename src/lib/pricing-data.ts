@@ -146,5 +146,10 @@ export const CLOUD_SERVICES: PricingService[] = [
   // DevOps & CI/CD
   { id: 'aws-codebuild', provider: 'AWS', category: 'DevOps & CI/CD', service_name: 'CodeBuild', price: 0.005, pricing_unit: 'build minute', billing_cycle: 'unit', region: 'us-east-1', input_label: 'Build Minutes' },
   { id: 'azure-devops', provider: 'Microsoft Azure', category: 'DevOps & CI/CD', service_name: 'Azure DevOps', price: 40.00, pricing_unit: 'user/month', billing_cycle: 'month', region: 'Global', input_label: 'Users' },
-  { id: 'gcp-cloud-build', provider: 'Google Cloud Platform', category: 'DevOps & CI/CD', service_name: 'Cloud Build', price: 0.003, pricing_unit: 'build minute', billing_cycle: 'unit', region: 'us-central1', input_label: 'Build Minutes' }
+  { id: 'gcp-cloud-build', provider: 'Google Cloud Platform', category: 'DevOps & CI/CD', service_name: 'Cloud Build', price: 0.003, pricing_unit: 'build minute', billing_cycle: 'unit', region: 'us-central1', input_label: 'Build Minutes' },
+
+  // Monitoring & Logging
+  { id: 'aws-cloudwatch-metrics', provider: 'AWS', category: 'Monitoring & Logging', service_name: 'CloudWatch', description: 'Custom metrics', price: 0.30, pricing_unit: 'metric/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Metrics' },
+  { id: 'azure-monitor-logs', provider: 'Microsoft Azure', category: 'Monitoring & Logging', service_name: 'Azure Monitor', description: 'Log ingestion', price: 2.76, pricing_unit: 'GB', billing_cycle: 'unit', region: 'East US', input_label: 'Logs (GB)' },
+  { id: 'gcp-monitoring-logs', provider: 'Google Cloud Platform', category: 'Monitoring & Logging', service_name: 'Cloud Monitoring', description: 'Logs ingestion', price: 0.258, pricing_unit: 'MiB', billing_cycle: 'unit', region: 'us-central1', input_label: 'Logs (MiB)' }
 ];

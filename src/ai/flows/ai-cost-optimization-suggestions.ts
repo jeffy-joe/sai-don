@@ -59,10 +59,14 @@ const pricingDataJson = `
   { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.small", "price_per_hour": 0.0208 },
   { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.medium", "price_per_hour": 0.0416 },
   { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "t3.large", "price_per_hour": 0.0832 },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.large", "price_per_hour": 0.085 },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.xlarge", "price_per_hour": 0.17 },
+  { "provider": "AWS", "category": "Compute", "service_name": "EC2", "instance_type": "c5.2xlarge", "price_per_hour": 0.34 },
   { "provider": "AWS", "category": "Compute", "service_name": "Lambda", "price_per_million": 0.20 },
   
   { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "B1s", "price_per_hour": 0.012 },
   { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "B2s", "price_per_hour": 0.046 },
+  { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Virtual Machines", "instance_type": "D2s v3", "price_per_hour": 0.096 },
   { "provider": "Microsoft Azure", "category": "Compute", "service_name": "Azure Functions", "price_per_million": 0.20 },
 
   { "provider": "Google Cloud Platform", "category": "Compute", "service_name": "Compute Engine", "instance_type": "e2-micro", "price_per_hour": 0.008 },
@@ -81,7 +85,11 @@ const pricingDataJson = `
 
   { "provider": "AWS", "category": "DevOps & CI/CD", "service_name": "CodeBuild", "price_per_min": 0.005 },
   { "provider": "Microsoft Azure", "category": "DevOps & CI/CD", "service_name": "Azure DevOps", "price_per_user": 40.00 },
-  { "provider": "Google Cloud Platform", "category": "DevOps & CI/CD", "service_name": "Cloud Build", "price_per_min": 0.003 }
+  { "provider": "Google Cloud Platform", "category": "DevOps & CI/CD", "service_name": "Cloud Build", "price_per_min": 0.003 },
+
+  { "provider": "AWS", "category": "Monitoring & Logging", "service_name": "CloudWatch", "price_per_metric": 0.30 },
+  { "provider": "Microsoft Azure", "category": "Monitoring & Logging", "service_name": "Azure Monitor", "price_per_gb": 2.76 },
+  { "provider": "Google Cloud Platform", "category": "Monitoring & Logging", "service_name": "Cloud Monitoring", "price_per_mib": 0.258 }
 ]
 `;
 
@@ -105,6 +113,7 @@ Rules:
 1. Focus on comparing similar service types across providers or within the same provider.
 2. For DevOps/CI/CD, compare build minute costs where applicable.
 3. Suggest tiering down for cold storage if descriptions imply infrequent access.
+4. For Monitoring, compare ingestion rates across providers.
 `
 });
 
