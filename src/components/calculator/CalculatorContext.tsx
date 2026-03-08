@@ -1,7 +1,8 @@
 "use client"
 
 import React, { createContext, useContext, useState, useMemo } from 'react';
-import { PricingService, CLOUD_SERVICES } from '@/lib/pricing-data';
+import { PricingService } from '@/lib/pricing-data';
+import { getRealTimePrice } from '@/ai/flows/real-time-price-check';
 
 export interface ServiceInstance extends PricingService {
   instanceId: string;
@@ -28,15 +29,49 @@ const CalculatorContext = createContext<CalculatorContextType | undefined>(undef
 export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [selectedServices, setSelectedServices] = useState<ServiceInstance[]>([]);
 
-  const addService = (service: PricingService) => {
+  const updateServicePrice = (instanceId: string, newPrice: number) => {
+    setSelectedServices(prev => prev.map(s => 
+      s.instanceId === instanceId ? { ...s, price: newPrice } : s
+    ));
+  };
+
+  const setServiceVerifying = (instanceId: string, isVerifying: boolean) => {
+    setSelectedServices(prev => prev.map(s => 
+      s.instanceId === instanceId ? { ...s, isVerifying } : s
+    ));
+  };
+
+  const addService = async (service: PricingService) => {
+    const instanceId = Math.random().toString(36).substr(2, 9);
     const defaultUsage = service.billing_cycle === 'hour' ? 730 : 1;
+    
     const newInstance: ServiceInstance = {
       ...service,
-      instanceId: Math.random().toString(36).substr(2, 9),
+      instanceId,
       quantity: 1,
       usageValue: defaultUsage,
+      isVerifying: true,
+      price: 0, // Reset to 0 as we only use live data
     };
-    setSelectedServices([...selectedServices, newInstance]);
+    
+    setSelectedServices(prev => [...prev, newInstance]);
+
+    // Automatically trigger AI fetch on add
+    try {
+      const result = await getRealTimePrice({
+        provider: service.provider,
+        serviceName: service.service_name,
+        instanceType: service.instance_type,
+        region: service.region,
+        category: service.category
+      });
+      
+      updateServicePrice(instanceId, result.price);
+    } catch (error) {
+      console.error("AI Price Fetch Failed:", error);
+    } finally {
+      setServiceVerifying(instanceId, false);
+    }
   };
 
   const removeService = (instanceId: string) => {
@@ -52,18 +87,6 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const updateServiceQuantity = (instanceId: string, quantity: number) => {
     setSelectedServices(selectedServices.map(s => 
       s.instanceId === instanceId ? { ...s, quantity: Math.max(1, quantity) } : s
-    ));
-  };
-
-  const updateServicePrice = (instanceId: string, newPrice: number) => {
-    setSelectedServices(selectedServices.map(s => 
-      s.instanceId === instanceId ? { ...s, price: newPrice } : s
-    ));
-  };
-
-  const setServiceVerifying = (instanceId: string, isVerifying: boolean) => {
-    setSelectedServices(selectedServices.map(s => 
-      s.instanceId === instanceId ? { ...s, isVerifying } : s
     ));
   };
 

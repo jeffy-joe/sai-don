@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { CLOUD_SERVICES, Provider, Category } from '@/lib/pricing-data';
 import { useCalculator } from './CalculatorContext';
-import { Search, Plus, Server, Cloud, Database, Network, Box, Cpu, Shield, Zap, Activity, Globe, LayoutGrid, MapPin } from 'lucide-react';
+import { Search, Plus, Server, Cloud, Database, Network, Box, Cpu, Shield, Zap, Activity, Globe, LayoutGrid, MapPin, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const CATEGORY_ICONS: Record<string, any> = {
@@ -49,7 +49,6 @@ export function ServicePicker() {
   const [selectedRegion, setSelectedRegion] = useState<string>('All');
   const [open, setOpen] = useState(false);
 
-  // Extract unique regions from the service data
   const availableRegions = useMemo(() => {
     const regions = new Set<string>();
     regions.add('All');
@@ -96,7 +95,6 @@ export function ServicePicker() {
             </div>
 
             <div className="flex gap-4">
-              {/* Provider Filter */}
               <div className="flex p-1 bg-white/5 rounded-lg border border-white/5">
                 {['All', 'AWS', 'Microsoft Azure', 'Google Cloud Platform'].map((p) => (
                   <button
@@ -114,7 +112,6 @@ export function ServicePicker() {
                 ))}
               </div>
 
-              {/* Region Filter */}
               <Select value={selectedRegion} onValueChange={setSelectedRegion}>
                 <SelectTrigger className="w-[180px] h-11 bg-white/5 border-white/10 font-semibold">
                   <div className="flex items-center gap-2">
@@ -135,7 +132,6 @@ export function ServicePicker() {
         </DialogHeader>
 
         <div className="flex flex-1 overflow-hidden">
-          {/* Categories Sidebar */}
           <div className="w-72 border-r border-white/5 overflow-y-auto bg-black/20 p-4 space-y-2">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/50 mb-4 px-3">Service Categories</p>
             {CATEGORIES.map((cat) => {
@@ -159,7 +155,6 @@ export function ServicePicker() {
             })}
           </div>
 
-          {/* Service Results */}
           <div className="flex-1 overflow-y-auto p-8 bg-background/50">
             {filteredServices.length > 0 ? (
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
@@ -194,9 +189,10 @@ export function ServicePicker() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-mono text-xl font-black text-accent leading-none">
-                          ${service.price}
-                        </p>
+                        <div className="flex items-center gap-1.5 text-accent">
+                          <Sparkles className="w-3.5 h-3.5" />
+                          <span className="text-[10px] uppercase font-black tracking-tighter">Live Price Fetch</span>
+                        </div>
                         <p className="text-[10px] text-muted-foreground uppercase font-black tracking-tighter mt-1">
                           per {service.pricing_unit}
                         </p>
@@ -211,7 +207,7 @@ export function ServicePicker() {
                   <Search className="w-10 h-10 text-muted-foreground" />
                 </div>
                 <p className="text-2xl font-black">No services found</p>
-                <p className="text-muted-foreground mt-2 max-w-xs">Try adjusting your region, provider, or search terms to find what you're looking for.</p>
+                <p className="text-muted-foreground mt-2 max-w-xs">Try adjusting your region, provider, or search terms.</p>
               </div>
             )}
           </div>

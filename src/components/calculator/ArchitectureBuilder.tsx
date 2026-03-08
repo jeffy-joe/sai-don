@@ -6,56 +6,18 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
-import { Trash2, Users, Clock, Server, RefreshCw, Loader2, Zap } from 'lucide-react';
+import { Trash2, Users, Clock, Server, Loader2, Sparkles } from 'lucide-react';
 import { ServicePicker } from './ServicePicker';
-import { getRealTimePrice } from '@/ai/flows/real-time-price-check';
-import { useToast } from '@/hooks/use-toast';
 
 export function ArchitectureBuilder() {
-  const { selectedServices, removeService, updateServiceUsage, updateServiceQuantity, updateServicePrice, setServiceVerifying } = useCalculator();
-  const { toast } = useToast();
-
-  const handleVerifyPrice = async (instance: any) => {
-    setServiceVerifying(instance.instanceId, true);
-    try {
-      const result = await getRealTimePrice({
-        provider: instance.provider,
-        serviceName: instance.service_name,
-        instanceType: instance.instance_type,
-        region: instance.region,
-        category: instance.category
-      });
-      
-      if (result.price !== instance.price) {
-        updateServicePrice(instance.instanceId, result.price);
-        toast({
-          title: "Price Updated",
-          description: `${instance.service_name} price updated to real-time value: $${result.price}/${instance.pricing_unit}`,
-        });
-      } else {
-        toast({
-          title: "Price Verified",
-          description: "Our AI confirmed the current price is accurate.",
-        });
-      }
-    } catch (error) {
-      console.error(error);
-      toast({
-        variant: "destructive",
-        title: "Verification Failed",
-        description: "Could not fetch real-time data at this moment.",
-      });
-    } finally {
-      setServiceVerifying(instance.instanceId, false);
-    }
-  };
+  const { selectedServices, removeService, updateServiceUsage, updateServiceQuantity } = useCalculator();
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Infrastructure Design</h2>
-          <p className="text-muted-foreground">Configure your cloud resources and see real-time cost estimates.</p>
+          <p className="text-muted-foreground">AI automatically fetches the most accurate real-time pricing for your design.</p>
         </div>
       </div>
 
@@ -66,7 +28,11 @@ export function ArchitectureBuilder() {
               <div className="flex flex-col lg:flex-row gap-8">
                 <div className="flex-1 flex gap-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
-                    <span className="text-xs font-bold text-primary">{instance.provider.charAt(0)}</span>
+                    {instance.isVerifying ? (
+                      <Loader2 className="w-5 h-5 text-primary animate-spin" />
+                    ) : (
+                      <span className="text-xs font-bold text-primary">{instance.provider.charAt(0)}</span>
+                    )}
                   </div>
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
@@ -80,20 +46,15 @@ export function ArchitectureBuilder() {
                     <p className="text-sm text-muted-foreground">{instance.provider} • {instance.category}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-xs font-medium text-accent uppercase tracking-widest">{instance.region}</p>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="h-6 px-2 text-[10px] gap-1 font-bold text-primary hover:bg-primary/10"
-                        onClick={() => handleVerifyPrice(instance)}
-                        disabled={instance.isVerifying}
-                      >
-                        {instance.isVerifying ? (
-                          <Loader2 className="w-3 h-3 animate-spin" />
-                        ) : (
-                          <RefreshCw className="w-3 h-3" />
-                        )}
-                        Live Price Check
-                      </Button>
+                      {instance.isVerifying ? (
+                        <span className="text-[10px] text-muted-foreground animate-pulse flex items-center gap-1">
+                          <Sparkles className="w-2.5 h-2.5" /> Fetching real-time price...
+                        </span>
+                      ) : (
+                        <span className="text-[10px] text-primary font-bold flex items-center gap-1">
+                          <Sparkles className="w-2.5 h-2.5" /> AI Verified Live Price
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -137,7 +98,11 @@ export function ArchitectureBuilder() {
                     <div className="text-right">
                       <p className="text-xs text-muted-foreground uppercase font-bold">Subtotal</p>
                       <p className="text-xl font-mono font-bold text-primary">
-                        ${((instance.unit_multiplier ? (instance.usageValue / instance.unit_multiplier) : instance.usageValue) * instance.price * instance.quantity).toFixed(2)}
+                        {instance.isVerifying ? (
+                          <span className="opacity-50">...</span>
+                        ) : (
+                          `$${((instance.unit_multiplier ? (instance.usageValue / instance.unit_multiplier) : instance.usageValue) * instance.price * instance.quantity).toFixed(2)}`
+                        )}
                       </p>
                     </div>
                     <Button 
@@ -165,7 +130,7 @@ export function ArchitectureBuilder() {
             <div>
               <h3 className="text-xl font-bold">No services added yet</h3>
               <p className="text-muted-foreground max-sm mx-auto">
-                Start by adding cloud services from AWS, Azure, or GCP to your infrastructure design.
+                Add services from the catalog. Gemini will instantly fetch live market pricing for your selections.
               </p>
             </div>
           </div>
