@@ -7,6 +7,7 @@ export interface ServiceInstance extends PricingService {
   instanceId: string;
   quantity: number;
   usageValue: number; // e.g., hours per month, GB, or units
+  isVerifying?: boolean;
 }
 
 interface CalculatorContextType {
@@ -15,6 +16,8 @@ interface CalculatorContextType {
   removeService: (instanceId: string) => void;
   updateServiceUsage: (instanceId: string, usage: number) => void;
   updateServiceQuantity: (instanceId: string, quantity: number) => void;
+  updateServicePrice: (instanceId: string, newPrice: number) => void;
+  setServiceVerifying: (instanceId: string, isVerifying: boolean) => void;
   totalMonthlyCost: number;
   providerCosts: Record<string, number>;
   categoryCosts: Record<string, number>;
@@ -49,6 +52,18 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const updateServiceQuantity = (instanceId: string, quantity: number) => {
     setSelectedServices(selectedServices.map(s => 
       s.instanceId === instanceId ? { ...s, quantity: Math.max(1, quantity) } : s
+    ));
+  };
+
+  const updateServicePrice = (instanceId: string, newPrice: number) => {
+    setSelectedServices(selectedServices.map(s => 
+      s.instanceId === instanceId ? { ...s, price: newPrice } : s
+    ));
+  };
+
+  const setServiceVerifying = (instanceId: string, isVerifying: boolean) => {
+    setSelectedServices(selectedServices.map(s => 
+      s.instanceId === instanceId ? { ...s, isVerifying } : s
     ));
   };
 
@@ -89,6 +104,8 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       removeService,
       updateServiceUsage,
       updateServiceQuantity,
+      updateServicePrice,
+      setServiceVerifying,
       totalMonthlyCost,
       providerCosts,
       categoryCosts

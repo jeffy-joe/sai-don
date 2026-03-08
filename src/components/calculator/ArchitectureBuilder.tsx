@@ -6,11 +6,49 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
-import { Trash2, Users, Clock, Server } from 'lucide-react';
+import { Trash2, Users, Clock, Server, RefreshCw, Loader2, Zap } from 'lucide-react';
 import { ServicePicker } from './ServicePicker';
+import { getRealTimePrice } from '@/ai/flows/real-time-price-check';
+import { useToast } from '@/hooks/use-toast';
 
 export function ArchitectureBuilder() {
-  const { selectedServices, removeService, updateServiceUsage, updateServiceQuantity } = useCalculator();
+  const { selectedServices, removeService, updateServiceUsage, updateServiceQuantity, updateServicePrice, setServiceVerifying } = useCalculator();
+  const { toast } = useToast();
+
+  const handleVerifyPrice = async (instance: any) => {
+    setServiceVerifying(instance.instanceId, true);
+    try {
+      const result = await getRealTimePrice({
+        provider: instance.provider,
+        serviceName: instance.service_name,
+        instanceType: instance.instance_type,
+        region: instance.region,
+        category: instance.category
+      });
+      
+      if (result.price !== instance.price) {
+        updateServicePrice(instance.instanceId, result.price);
+        toast({
+          title: "Price Updated",
+          description: `${instance.service_name} price updated to real-time value: $${result.price}/${instance.pricing_unit}`,
+        });
+      } else {
+        toast({
+          title: "Price Verified",
+          description: "Our AI confirmed the current price is accurate.",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        title: "Verification Failed",
+        description: "Could not fetch real-time data at this moment.",
+      });
+    } finally {
+      setServiceVerifying(instance.instanceId, false);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -40,7 +78,23 @@ export function ArchitectureBuilder() {
                       )}
                     </div>
                     <p className="text-sm text-muted-foreground">{instance.provider} • {instance.category}</p>
-                    <p className="text-xs font-medium text-accent uppercase tracking-widest">{instance.region}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-xs font-medium text-accent uppercase tracking-widest">{instance.region}</p>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-6 px-2 text-[10px] gap-1 font-bold text-primary hover:bg-primary/10"
+                        onClick={() => handleVerifyPrice(instance)}
+                        disabled={instance.isVerifying}
+                      >
+                        {instance.isVerifying ? (
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : (
+                          <RefreshCw className="w-3 h-3" />
+                        )}
+                        Live Price Check
+                      </Button>
+                    </div>
                   </div>
                 </div>
 
