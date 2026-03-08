@@ -16,13 +16,7 @@ export default function LandingPage() {
             <span className="text-2xl font-black tracking-tighter">CloudCalc<span className="text-primary">Pro</span></span>
           </div>
           
-          <nav className="hidden md:flex items-center gap-10">
-            <Link href="#pricing" className="text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors">Supported Clouds</Link>
-          </nav>
-
-          <div className="flex items-center gap-4">
-            {/* Header buttons removed as requested */}
-          </div>
+          {/* Navigation and header buttons removed as requested */}
         </div>
       </header>
 
@@ -31,7 +25,7 @@ export default function LandingPage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full gradient-bg opacity-50 -z-10" />
         <div className="max-w-7xl mx-auto px-6 text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-accent uppercase tracking-widest animate-fade-in">
-            <Zap className="w-4 h-4 fill-accent" /> Now with AI Cost Optimization
+            < Zap className="w-4 h-4 fill-accent" /> Now with AI Cost Optimization
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.1] max-w-4xl mx-auto">
             Estimate Your Cloud Infrastructure <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Costs in Minutes.</span>
@@ -42,12 +36,9 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
             <Link href="/calculator">
               <Button size="lg" className="h-14 px-10 text-lg font-bold rounded-full group">
-                Start Building Now <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Go to Calculator <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold rounded-full glass-card">
-              View Sample Estimates
-            </Button>
           </div>
 
           {/* Feature Badges */}
