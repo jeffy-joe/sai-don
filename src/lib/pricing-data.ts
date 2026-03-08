@@ -139,6 +139,11 @@ export const CLOUD_SERVICES: PricingService[] = [
   { id: 'azure-aks', provider: 'Microsoft Azure', category: 'Containers & Kubernetes', service_name: 'AKS', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'East US' },
   { id: 'gcp-gke', provider: 'Google Cloud Platform', category: 'Containers & Kubernetes', service_name: 'GKE', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'us-central1' },
 
+  // AI / Machine Learning
+  { id: 'aws-sagemaker-training', provider: 'AWS', category: 'AI / Machine Learning', service_name: 'SageMaker', description: 'Training compute', price: 0.12, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'azure-ml-training', provider: 'Microsoft Azure', category: 'AI / Machine Learning', service_name: 'Azure Machine Learning', description: 'Training compute', price: 0.10, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  { id: 'gcp-vertex-training', provider: 'Google Cloud Platform', category: 'AI / Machine Learning', service_name: 'Vertex AI', description: 'Training compute', price: 0.11, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+
   // Networking
   { id: 'aws-data-out', provider: 'AWS', category: 'Networking', service_name: 'Data Transfer Out', price: 0.09, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
   { id: 'azure-data-out', provider: 'Microsoft Azure', category: 'Networking', service_name: 'Data Transfer Out', price: 0.087, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
