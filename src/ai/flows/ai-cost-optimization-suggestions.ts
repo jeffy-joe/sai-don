@@ -89,7 +89,11 @@ const pricingDataJson = `
 
   { "provider": "AWS", "category": "Monitoring & Logging", "service_name": "CloudWatch", "price_per_metric": 0.30 },
   { "provider": "Microsoft Azure", "category": "Monitoring & Logging", "service_name": "Azure Monitor", "price_per_gb": 2.76 },
-  { "provider": "Google Cloud Platform", "category": "Monitoring & Logging", "service_name": "Cloud Monitoring", "price_per_mib": 0.258 }
+  { "provider": "Google Cloud Platform", "category": "Monitoring & Logging", "service_name": "Cloud Monitoring", "price_per_mib": 0.258 },
+
+  { "provider": "AWS", "category": "Security Services", "service_name": "WAF", "price_per_acl": 5.00 },
+  { "provider": "Microsoft Azure", "category": "Security Services", "service_name": "WAF", "price_per_month": 20.00 },
+  { "provider": "Google Cloud Platform", "category": "Security Services", "service_name": "Cloud Armor", "price_per_policy": 5.00 }
 ]
 `;
 
@@ -114,6 +118,7 @@ Rules:
 2. For DevOps/CI/CD, compare build minute costs where applicable.
 3. Suggest tiering down for cold storage if descriptions imply infrequent access.
 4. For Monitoring, compare ingestion rates across providers.
+5. For Security Services, consider WAF costs which can scale per policy or per month.
 `
 });
 

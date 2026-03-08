@@ -151,5 +151,10 @@ export const CLOUD_SERVICES: PricingService[] = [
   // Monitoring & Logging
   { id: 'aws-cloudwatch-metrics', provider: 'AWS', category: 'Monitoring & Logging', service_name: 'CloudWatch', description: 'Custom metrics', price: 0.30, pricing_unit: 'metric/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Metrics' },
   { id: 'azure-monitor-logs', provider: 'Microsoft Azure', category: 'Monitoring & Logging', service_name: 'Azure Monitor', description: 'Log ingestion', price: 2.76, pricing_unit: 'GB', billing_cycle: 'unit', region: 'East US', input_label: 'Logs (GB)' },
-  { id: 'gcp-monitoring-logs', provider: 'Google Cloud Platform', category: 'Monitoring & Logging', service_name: 'Cloud Monitoring', description: 'Logs ingestion', price: 0.258, pricing_unit: 'MiB', billing_cycle: 'unit', region: 'us-central1', input_label: 'Logs (MiB)' }
+  { id: 'gcp-monitoring-logs', provider: 'Google Cloud Platform', category: 'Monitoring & Logging', service_name: 'Cloud Monitoring', description: 'Logs ingestion', price: 0.258, pricing_unit: 'MiB', billing_cycle: 'unit', region: 'us-central1', input_label: 'Logs (MiB)' },
+
+  // Security Services
+  { id: 'aws-waf', provider: 'AWS', category: 'Security Services', service_name: 'WAF', description: 'Web ACL', price: 5.00, pricing_unit: 'Web ACL/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Web ACLs' },
+  { id: 'azure-waf', provider: 'Microsoft Azure', category: 'Security Services', service_name: 'WAF', description: 'Monthly fee', price: 20.00, pricing_unit: 'month', billing_cycle: 'month', region: 'East US' },
+  { id: 'gcp-armor', provider: 'Google Cloud Platform', category: 'Security Services', service_name: 'Cloud Armor', description: 'Policy fee', price: 5.00, pricing_unit: 'policy/month', billing_cycle: 'month', region: 'us-central1', input_label: 'Policies' }
 ];
