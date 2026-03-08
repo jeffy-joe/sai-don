@@ -22,6 +22,7 @@ export interface PricingService {
   instance_type?: string;
   vCPU?: number;
   RAM?: string;
+  gpu?: string;
   price: number;
   pricing_unit: string;
   billing_cycle: 'hour' | 'month' | 'unit';
@@ -32,23 +33,56 @@ export interface PricingService {
 }
 
 export const CLOUD_SERVICES: PricingService[] = [
-  // AWS Compute
+  // AWS Compute - EC2 General Purpose
   { id: 'aws-ec2-t3nano', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.nano', vCPU: 2, RAM: '0.5GB', price: 0.0052, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
   { id: 'aws-ec2-t3micro', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.micro', vCPU: 2, RAM: '1GB', price: 0.0104, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
   { id: 'aws-ec2-t3small', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.small', vCPU: 2, RAM: '2GB', price: 0.0208, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
   { id: 'aws-ec2-t3medium', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.medium', vCPU: 2, RAM: '4GB', price: 0.0416, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
   { id: 'aws-ec2-t3large', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.large', vCPU: 2, RAM: '8GB', price: 0.0832, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
-  { id: 'aws-ec2-c5large', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'c5.large', vCPU: 2, RAM: '4GB', price: 0.085, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
-  { id: 'aws-lambda-requests', provider: 'AWS', category: 'Compute', service_name: 'Lambda', description: 'Requests per month', price: 0.20, pricing_unit: '1M requests', billing_cycle: 'unit', region: 'us-east-1', unit_multiplier: 1000000, input_label: 'Requests' },
   
-  // Azure Compute
+  // AWS Compute - EC2 Compute Optimized
+  { id: 'aws-ec2-c5large', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'c5.large', vCPU: 2, RAM: '4GB', price: 0.085, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-c5xlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'c5.xlarge', vCPU: 4, RAM: '8GB', price: 0.17, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-c52xlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'c5.2xlarge', vCPU: 8, RAM: '16GB', price: 0.34, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  
+  // AWS Compute - EC2 Memory Optimized
+  { id: 'aws-ec2-r5large', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'r5.large', vCPU: 2, RAM: '16GB', price: 0.126, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-r5xlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'r5.xlarge', vCPU: 4, RAM: '32GB', price: 0.252, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  
+  // AWS Compute - EC2 GPU Instances
+  { id: 'aws-ec2-g4dnxlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'g4dn.xlarge', gpu: 'NVIDIA T4', price: 0.526, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-ec2-p32xlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 'p3.2xlarge', gpu: 'NVIDIA V100', price: 3.06, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  
+  // AWS Compute - Serverless
+  { id: 'aws-lambda-requests', provider: 'AWS', category: 'Compute', service_name: 'Lambda', description: 'Requests per month', price: 0.20, pricing_unit: '1M requests', billing_cycle: 'unit', region: 'us-east-1', unit_multiplier: 1000000, input_label: 'Requests' },
+  { id: 'aws-lambda-duration', provider: 'AWS', category: 'Compute', service_name: 'Lambda', description: 'Compute duration', price: 0.00001667, pricing_unit: 'GB-second', billing_cycle: 'unit', region: 'us-east-1', input_label: 'GB-Seconds' },
+
+  // Azure Compute - Virtual Machines B Series
   { id: 'azure-vm-b1s', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'B1s', vCPU: 1, RAM: '1GB', price: 0.012, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
   { id: 'azure-vm-b2s', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'B2s', vCPU: 2, RAM: '4GB', price: 0.046, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  
+  // Azure Compute - Virtual Machines D Series
+  { id: 'azure-vm-d2sv3', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'D2s v3', vCPU: 2, RAM: '8GB', price: 0.096, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  { id: 'azure-vm-d4sv3', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'D4s v3', vCPU: 4, RAM: '16GB', price: 0.192, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  
+  // Azure Compute - Virtual Machines F Series
+  { id: 'azure-vm-f2', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'F2', vCPU: 2, RAM: '4GB', price: 0.085, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  { id: 'azure-vm-f4', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'F4', vCPU: 4, RAM: '8GB', price: 0.169, pricing_unit: 'hour', billing_cycle: 'hour', region: 'East US' },
+  
+  // Azure Compute - Serverless
   { id: 'azure-functions', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Azure Functions', description: 'Execution pricing', price: 0.20, pricing_unit: '1M executions', billing_cycle: 'unit', region: 'East US', unit_multiplier: 1000000, input_label: 'Executions' },
 
-  // GCP Compute
-  { id: 'gcp-ce-micro', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-micro', price: 0.008, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
-  { id: 'gcp-ce-small', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-small', price: 0.017, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  // GCP Compute - E2 Instances
+  { id: 'gcp-ce-e2micro', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-micro', price: 0.008, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  { id: 'gcp-ce-e2small', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-small', price: 0.017, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  { id: 'gcp-ce-e2medium', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-medium', price: 0.033, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  
+  // GCP Compute - N2 Instances
+  { id: 'gcp-ce-n2standard2', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'n2-standard-2', price: 0.097, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  { id: 'gcp-ce-n2standard4', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'n2-standard-4', price: 0.194, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
+  
+  // GCP Compute - GPU
+  { id: 'gcp-ce-gpu-t4', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'GPU Instance', instance_type: 'NVIDIA T4 GPU', price: 0.35, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-central1' },
 
   // Storage
   { id: 'aws-s3-standard', provider: 'AWS', category: 'Storage', service_name: 'S3 Standard', price: 0.023, pricing_unit: 'GB/month', billing_cycle: 'month', region: 'us-east-1', input_label: 'Storage (GB)' },
