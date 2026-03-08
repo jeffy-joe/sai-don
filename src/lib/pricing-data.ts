@@ -141,5 +141,10 @@ export const CLOUD_SERVICES: PricingService[] = [
   // Networking
   { id: 'aws-data-out', provider: 'AWS', category: 'Networking', service_name: 'Data Transfer Out', price: 0.09, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
   { id: 'azure-data-out', provider: 'Microsoft Azure', category: 'Networking', service_name: 'Data Transfer Out', price: 0.087, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
-  { id: 'gcp-data-out', provider: 'Google Cloud Platform', category: 'Networking', service_name: 'Data Transfer Out', price: 0.085, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' }
+  { id: 'gcp-data-out', provider: 'Google Cloud Platform', category: 'Networking', service_name: 'Data Transfer Out', price: 0.085, pricing_unit: 'GB', billing_cycle: 'unit', region: 'Global', input_label: 'Data Out (GB)' },
+
+  // DevOps & CI/CD
+  { id: 'aws-codebuild', provider: 'AWS', category: 'DevOps & CI/CD', service_name: 'CodeBuild', price: 0.005, pricing_unit: 'build minute', billing_cycle: 'unit', region: 'us-east-1', input_label: 'Build Minutes' },
+  { id: 'azure-devops', provider: 'Microsoft Azure', category: 'DevOps & CI/CD', service_name: 'Azure DevOps', price: 40.00, pricing_unit: 'user/month', billing_cycle: 'month', region: 'Global', input_label: 'Users' },
+  { id: 'gcp-cloud-build', provider: 'Google Cloud Platform', category: 'DevOps & CI/CD', service_name: 'Cloud Build', price: 0.003, pricing_unit: 'build minute', billing_cycle: 'unit', region: 'us-central1', input_label: 'Build Minutes' }
 ];
