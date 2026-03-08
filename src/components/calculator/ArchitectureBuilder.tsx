@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
-import { Trash2, Users, Clock, Database, ChevronRight } from 'lucide-react';
+import { Trash2, Users, Clock, Database, ChevronRight, Server } from 'lucide-react';
 import { ServicePicker } from './ServicePicker';
 
 export function ArchitectureBuilder() {
