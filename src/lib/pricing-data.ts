@@ -133,6 +133,12 @@ export const CLOUD_SERVICES: PricingService[] = [
   { id: 'gcp-firestore-writes', provider: 'Google Cloud Platform', category: 'Database', service_name: 'Firestore Writes', price: 0.18, pricing_unit: '100k writes', billing_cycle: 'unit', region: 'us-central1', unit_multiplier: 100000, input_label: '100k Write Ops' },
   { id: 'gcp-firestore-reads', provider: 'Google Cloud Platform', category: 'Database', service_name: 'Firestore Reads', price: 0.06, pricing_unit: '100k reads', billing_cycle: 'unit', region: 'us-central1', unit_multiplier: 100000, input_label: '100k Read Ops' },
 
+  // Big Data & Analytics
+  { id: 'aws-emr', provider: 'AWS', category: 'Analytics / Big Data', service_name: 'EMR', price: 0.096, pricing_unit: 'hour', billing_cycle: 'hour', region: 'us-east-1' },
+  { id: 'aws-athena', provider: 'AWS', category: 'Analytics / Big Data', service_name: 'Athena', price: 5.00, pricing_unit: 'TB scanned', billing_cycle: 'unit', region: 'us-east-1', unit_multiplier: 1, input_label: 'TB Scanned' },
+  { id: 'azure-synapse', provider: 'Microsoft Azure', category: 'Analytics / Big Data', service_name: 'Synapse Analytics', price: 5.00, pricing_unit: 'TB scanned', billing_cycle: 'unit', region: 'East US', unit_multiplier: 1, input_label: 'TB Scanned' },
+  { id: 'gcp-bigquery', provider: 'Google Cloud Platform', category: 'Analytics / Big Data', service_name: 'BigQuery', price: 5.00, pricing_unit: 'TB scanned', billing_cycle: 'unit', region: 'us-central1', unit_multiplier: 1, input_label: 'TB Scanned' },
+
   // Containers
   { id: 'aws-eks', provider: 'AWS', category: 'Containers & Kubernetes', service_name: 'EKS', description: 'Cluster management', price: 0.10, pricing_unit: 'cluster/hour', billing_cycle: 'hour', region: 'us-east-1' },
   { id: 'aws-ecs-vcpu', provider: 'AWS', category: 'Containers & Kubernetes', service_name: 'ECS', description: 'Compute cost', price: 0.040, pricing_unit: 'vCPU/hour', billing_cycle: 'hour', region: 'us-east-1', input_label: 'vCPU/hour' },

@@ -83,6 +83,11 @@ const pricingDataJson = `
   { "provider": "Microsoft Azure", "category": "Database", "service_name": "SQL DB Basic", "price_per_month": 5.00 },
   { "provider": "Google Cloud Platform", "category": "Database", "service_name": "Cloud SQL", "instance_type": "db-f1-micro", "price_per_hour": 0.015 },
 
+  { "provider": "AWS", "category": "Analytics / Big Data", "service_name": "EMR", "price_per_hour": 0.096 },
+  { "provider": "AWS", "category": "Analytics / Big Data", "service_name": "Athena", "price_per_tb": 5.00 },
+  { "provider": "Microsoft Azure", "category": "Analytics / Big Data", "service_name": "Synapse Analytics", "price_per_tb": 5.00 },
+  { "provider": "Google Cloud Platform", "category": "Analytics / Big Data", "service_name": "BigQuery", "price_per_tb": 5.00 },
+
   { "provider": "AWS", "category": "Containers & Kubernetes", "service_name": "EKS", "price_per_hour": 0.10 },
   { "provider": "AWS", "category": "Containers & Kubernetes", "service_name": "ECS", "price_per_vcpu_hour": 0.040 },
   { "provider": "Microsoft Azure", "category": "Containers & Kubernetes", "service_name": "AKS", "price_per_hour": 0.10 },
@@ -140,6 +145,7 @@ Rules:
 7. For CDN, compare the price per GB transferred across providers.
 8. For Containers, compare cluster management fees and ECS vCPU costs if applicable. Consider if serverless containers (ECS) might be cheaper for smaller workloads.
 9. For AI / Machine Learning, compare the hourly training compute costs between SageMaker, Azure ML, and Vertex AI.
+10. For Big Data & Analytics, compare the TB scanned pricing between Athena, Synapse, and BigQuery.
 `
 });
 
