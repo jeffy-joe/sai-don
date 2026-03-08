@@ -95,6 +95,10 @@ const pricingDataJson = `
   { "provider": "Microsoft Azure", "category": "Security Services", "service_name": "WAF", "price_per_month": 20.00 },
   { "provider": "Google Cloud Platform", "category": "Security Services", "service_name": "Cloud Armor", "price_per_policy": 5.00 },
 
+  { "provider": "AWS", "category": "CDN & Edge", "service_name": "CloudFront", "price_per_gb": 0.085 },
+  { "provider": "Microsoft Azure", "category": "CDN & Edge", "service_name": "Azure CDN", "price_per_gb": 0.081 },
+  { "provider": "Google Cloud Platform", "category": "CDN & Edge", "service_name": "Cloud CDN", "price_per_gb": 0.08 },
+
   { "provider": "AWS", "category": "Messaging & Integration", "service_name": "SQS", "price_per_million": 0.40 },
   { "provider": "Microsoft Azure", "category": "Messaging & Integration", "service_name": "Service Bus", "price_per_month": 10.00 },
   { "provider": "Google Cloud Platform", "category": "Messaging & Integration", "service_name": "Pub/Sub", "price_per_tb": 40.00 }
@@ -124,6 +128,7 @@ Rules:
 4. Suggest tiering down for cold storage if descriptions imply infrequent access.
 5. For Monitoring, compare ingestion rates across providers.
 6. For Security Services, consider WAF costs which can scale per policy or per month.
+7. For CDN, compare the price per GB transferred across providers.
 `
 });
 
