@@ -58,11 +58,15 @@ export function ServicePicker() {
 
   const filteredServices = useMemo(() => {
     return CLOUD_SERVICES.filter(service => {
-      const matchesSearch = service.service_name.toLowerCase().includes(search.toLowerCase()) || 
-                            (service.instance_type?.toLowerCase().includes(search.toLowerCase()));
+      const searchLower = search.toLowerCase();
+      const matchesSearch = 
+        service.service_name.toLowerCase().includes(searchLower) || 
+        (service.instance_type?.toLowerCase().includes(searchLower) ?? false);
+      
       const matchesProvider = selectedProvider === 'All' || service.provider === selectedProvider;
       const matchesCategory = selectedCategory === 'All' || service.category === selectedCategory;
       const matchesRegion = selectedRegion === 'All' || service.region === selectedRegion;
+      
       return matchesSearch && matchesProvider && matchesCategory && matchesRegion;
     });
   }, [search, selectedProvider, selectedCategory, selectedRegion]);
@@ -96,24 +100,27 @@ export function ServicePicker() {
 
             <div className="flex gap-4">
               <div className="flex p-1 bg-white/5 rounded-lg border border-white/5">
-                {['All', 'AWS', 'Microsoft Azure', 'Google Cloud Platform'].map((p) => (
-                  <button
-                    key={p}
-                    onClick={() => setSelectedProvider(p as Provider | 'All')}
-                    className={cn(
-                      "px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-md transition-all whitespace-nowrap",
-                      selectedProvider === p 
-                        ? "bg-primary text-primary-foreground shadow-lg" 
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    {p === 'Microsoft Azure' ? 'Azure' : p === 'Google Cloud Platform' ? 'GCP' : p}
-                  </button>
-                ))}
+                {['All', 'AWS', 'Azure', 'GCP'].map((p) => {
+                  const providerValue = p === 'Azure' ? 'Microsoft Azure' : p === 'GCP' ? 'Google Cloud Platform' : p;
+                  return (
+                    <button
+                      key={p}
+                      onClick={() => setSelectedProvider(providerValue as Provider | 'All')}
+                      className={cn(
+                        "px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-md transition-all whitespace-nowrap",
+                        selectedProvider === providerValue 
+                          ? "bg-primary text-primary-foreground shadow-lg" 
+                          : "text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      {p}
+                    </button>
+                  );
+                })}
               </div>
 
               <Select value={selectedRegion} onValueChange={setSelectedRegion}>
-                <SelectTrigger className="w-[180px] h-11 bg-white/5 border-white/10 font-semibold">
+                <SelectTrigger className="w-[220px] h-11 bg-white/5 border-white/10 font-semibold">
                   <div className="flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-primary" />
                     <SelectValue placeholder="Select Region" />
@@ -122,7 +129,7 @@ export function ServicePicker() {
                 <SelectContent className="dark bg-background border-white/10">
                   {availableRegions.map(region => (
                     <SelectItem key={region} value={region} className="font-medium">
-                      {region === 'All' ? 'All Regions' : region}
+                      {region}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -179,7 +186,7 @@ export function ServicePicker() {
                           </h4>
                           <div className="flex items-center gap-3 mt-1.5">
                             <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest bg-white/5 px-2 py-0.5 rounded">
-                              {service.provider}
+                              {service.provider === 'Microsoft Azure' ? 'Azure' : service.provider === 'Google Cloud Platform' ? 'GCP' : service.provider}
                             </p>
                             <span className="w-1 h-1 rounded-full bg-white/10" />
                             <p className="text-[10px] text-primary uppercase font-black tracking-widest">
@@ -191,7 +198,7 @@ export function ServicePicker() {
                       <div className="text-right">
                         <div className="flex items-center gap-1.5 text-accent">
                           <Sparkles className="w-3.5 h-3.5" />
-                          <span className="text-[10px] uppercase font-black tracking-tighter">Live Price Fetch</span>
+                          <span className="text-[10px] uppercase font-black tracking-tighter">AI Fetch</span>
                         </div>
                         <p className="text-[10px] text-muted-foreground uppercase font-black tracking-tighter mt-1">
                           per {service.pricing_unit}
