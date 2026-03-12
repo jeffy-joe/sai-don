@@ -1,9 +1,17 @@
 import type {Metadata} from 'next';
 import './globals.css';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+
+const ogImage = PlaceHolderImages.find(img => img.id === 'og-image');
 
 export const metadata: Metadata = {
   title: 'CloudCalc Pro | Multi-Cloud Price Calculator',
-  description: 'Professional cloud infrastructure cost estimation for AWS, Azure, and Google Cloud.',
+  description: 'Professional cloud infrastructure cost estimation for AWS, Azure, and Google Cloud with AI optimization.',
+  openGraph: {
+    title: 'CloudCalc Pro',
+    description: 'Estimate your cloud costs with AI precision.',
+    images: ogImage ? [{ url: ogImage.imageUrl }] : [],
+  }
 };
 
 export default function RootLayout({

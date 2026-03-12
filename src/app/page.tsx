@@ -1,9 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Cloud, Zap, Shield, BarChart3, ArrowRight, Globe, Server } from 'lucide-react';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function LandingPage() {
+  const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
+
   return (
     <div className="min-h-screen bg-background text-foreground dark selection:bg-primary selection:text-white">
       {/* Header */}
@@ -15,14 +19,13 @@ export default function LandingPage() {
             </div>
             <span className="text-2xl font-black tracking-tighter">CloudCalc<span className="text-primary">Pro</span></span>
           </div>
-          
-          {/* Navigation and header buttons removed as requested */}
         </div>
       </header>
 
       {/* Hero Section */}
       <section className="relative pt-40 pb-20 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full gradient-bg opacity-50 -z-10" />
+        
         <div className="max-w-7xl mx-auto px-6 text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-accent uppercase tracking-widest animate-fade-in">
             < Zap className="w-4 h-4 fill-accent" /> Now with AI Cost Optimization
@@ -40,6 +43,21 @@ export default function LandingPage() {
               </Button>
             </Link>
           </div>
+
+          {/* Hero Image / Visual */}
+          {heroImage && (
+            <div className="mt-16 relative mx-auto max-w-5xl rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+              <Image 
+                src={heroImage.imageUrl} 
+                alt={heroImage.description}
+                width={1200}
+                height={800}
+                className="w-full h-auto object-cover opacity-80"
+                data-ai-hint={heroImage.imageHint}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+            </div>
+          )}
 
           {/* Feature Badges */}
           <div className="pt-20 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-40 grayscale">
@@ -68,7 +86,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl font-bold">Everything you need to plan your cloud spend</h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">Stop guessing your monthly bills. Get granular precision with our advanced simulation engine.</p>
+            <p className="text-muted-foreground max-xl mx-auto">Stop guessing your monthly bills. Get granular precision with our advanced simulation engine.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -1,0 +1,16 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "Abstract cloud infrastructure visualization",
+      "imageUrl": "https://picsum.photos/seed/cloudpro/1200/800",
+      "imageHint": "cloud network"
+    },
+    {
+      "id": "og-image",
+      "description": "CloudCalc Pro Social Preview",
+      "imageUrl": "https://picsum.photos/seed/share/1200/630",
+      "imageHint": "technology abstract"
+    }
+  ]
+}
