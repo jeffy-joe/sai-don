@@ -84,6 +84,7 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   const addService = async (service: PricingService) => {
     const instanceId = Math.random().toString(36).substr(2, 9);
+    // Default usage: 730 hours for compute, 1 unit for others
     const defaultUsage = service.billing_cycle === 'hour' ? 730 : 1;
     
     const newInstance: ServiceInstance = {
@@ -133,6 +134,10 @@ export const CalculatorProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
   const calculateInstanceCost = (instance: ServiceInstance) => {
     let cost = 0;
+    // Calculation Engine: 
+    // Compute: instance * usage * quantity
+    // Storage: size * price (per GB/mo) * quantity
+    // Others: unit * price * quantity
     if (instance.unit_multiplier) {
       cost = (instance.usageValue / instance.unit_multiplier) * instance.price;
     } else {

@@ -6,12 +6,22 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
-import { Trash2, Users, Clock, Server, Loader2, Sparkles } from 'lucide-react';
+import { Trash2, Users, Clock, Server, Loader2, Sparkles, HardDrive, Database, Network } from 'lucide-react';
 import { ServicePicker } from './ServicePicker';
 
 export function ArchitectureBuilder() {
   const { selectedServices, removeService, updateServiceUsage, updateServiceQuantity, currency } = useCalculator();
   const symbol = CURRENCY_SYMBOLS[currency];
+
+  const getCategoryIcon = (category: string) => {
+    switch (category) {
+      case 'Compute': return Server;
+      case 'Storage': return HardDrive;
+      case 'Database': return Database;
+      case 'Networking': return Network;
+      default: return Server;
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -23,103 +33,106 @@ export function ArchitectureBuilder() {
       </div>
 
       <div className="space-y-4">
-        {selectedServices.map((instance) => (
-          <Card key={instance.instanceId} className="glass-card overflow-hidden transition-all hover:ring-1 hover:ring-primary/20">
-            <CardContent className="p-6">
-              <div className="flex flex-col lg:flex-row gap-8">
-                <div className="flex-1 flex gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
-                    {instance.isVerifying ? (
-                      <Loader2 className="w-5 h-5 text-primary animate-spin" />
-                    ) : (
-                      <span className="text-xs font-bold text-primary">{instance.provider.charAt(0)}</span>
-                    )}
-                  </div>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-bold text-lg">{instance.service_name}</h3>
-                      {instance.instance_type && (
-                        <span className="text-xs px-2 py-0.5 rounded bg-muted font-mono text-muted-foreground uppercase">
-                          {instance.instance_type}
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-sm text-muted-foreground">{instance.provider} • {instance.category}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <p className="text-xs font-medium text-accent uppercase tracking-widest">{instance.region}</p>
+        {selectedServices.map((instance) => {
+          const Icon = getCategoryIcon(instance.category);
+          return (
+            <Card key={instance.instanceId} className="glass-card overflow-hidden transition-all hover:ring-1 hover:ring-primary/20">
+              <CardContent className="p-6">
+                <div className="flex flex-col lg:flex-row gap-8">
+                  <div className="flex-1 flex gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center shrink-0">
                       {instance.isVerifying ? (
-                        <span className="text-[10px] text-muted-foreground animate-pulse flex items-center gap-1">
-                          <Sparkles className="w-2.5 h-2.5" /> Fetching real-time {currency} price...
-                        </span>
+                        <Loader2 className="w-5 h-5 text-primary animate-spin" />
                       ) : (
-                        <span className="text-[10px] text-primary font-bold flex items-center gap-1">
-                          <Sparkles className="w-2.5 h-2.5" /> AI Verified {currency} Price
-                        </span>
+                        <Icon className="w-5 h-5 text-primary" />
                       )}
                     </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-6 items-end lg:items-center">
-                  <div className="w-full sm:w-48 space-y-2">
-                    <label className="text-xs font-semibold text-muted-foreground uppercase flex items-center gap-1.5">
-                      <Users className="w-3 h-3" /> Quantity
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <Slider
-                        value={[instance.quantity]}
-                        min={1}
-                        max={100}
-                        step={1}
-                        onValueChange={([val]) => updateServiceQuantity(instance.instanceId, val)}
-                        className="flex-1"
-                      />
-                      <span className="text-sm font-mono w-8 text-right font-bold">{instance.quantity}</span>
-                    </div>
-                  </div>
-
-                  <div className="w-full sm:w-64 space-y-2">
-                    <label className="text-xs font-semibold text-muted-foreground uppercase flex items-center gap-1.5">
-                      <Clock className="w-3 h-3" /> {instance.input_label || 'Usage per Month'}
-                    </label>
-                    <div className="flex items-center gap-3">
-                      <Input
-                        type="number"
-                        value={instance.usageValue}
-                        onChange={(e) => updateServiceUsage(instance.instanceId, Number(e.target.value))}
-                        className="h-9 font-mono bg-white/5 border-white/10"
-                      />
-                      <span className="text-xs text-muted-foreground whitespace-nowrap">
-                        {instance.billing_cycle === 'hour' ? 'hrs/mo' : instance.pricing_unit}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4 pl-4 border-l border-white/10">
-                    <div className="text-right min-w-[100px]">
-                      <p className="text-xs text-muted-foreground uppercase font-bold">Subtotal</p>
-                      <p className="text-xl font-mono font-bold text-primary">
-                        {instance.isVerifying ? (
-                          <span className="opacity-50">...</span>
-                        ) : (
-                          `${symbol}${((instance.unit_multiplier ? (instance.usageValue / instance.unit_multiplier) : instance.usageValue) * instance.price * instance.quantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-bold text-lg">{instance.service_name}</h3>
+                        {instance.instance_type && (
+                          <span className="text-xs px-2 py-0.5 rounded bg-muted font-mono text-muted-foreground uppercase">
+                            {instance.instance_type}
+                          </span>
                         )}
-                      </p>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{instance.provider} • {instance.category}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <p className="text-xs font-medium text-accent uppercase tracking-widest">{instance.region}</p>
+                        {instance.isVerifying ? (
+                          <span className="text-[10px] text-muted-foreground animate-pulse flex items-center gap-1">
+                            <Sparkles className="w-2.5 h-2.5" /> Fetching real-time {currency} price...
+                          </span>
+                        ) : (
+                          <span className="text-[10px] text-primary font-bold flex items-center gap-1">
+                            <Sparkles className="w-2.5 h-2.5" /> AI Verified {currency} Price
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <Button 
-                      variant="ghost" 
-                      size="icon" 
-                      className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-                      onClick={() => removeService(instance.instanceId)}
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </Button>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-6 items-end lg:items-center">
+                    <div className="w-full sm:w-48 space-y-2">
+                      <label className="text-xs font-semibold text-muted-foreground uppercase flex items-center gap-1.5">
+                        <Users className="w-3 h-3" /> Quantity
+                      </label>
+                      <div className="flex items-center gap-3">
+                        <Slider
+                          value={[instance.quantity]}
+                          min={1}
+                          max={100}
+                          step={1}
+                          onValueChange={([val]) => updateServiceQuantity(instance.instanceId, val)}
+                          className="flex-1"
+                        />
+                        <span className="text-sm font-mono w-8 text-right font-bold">{instance.quantity}</span>
+                      </div>
+                    </div>
+
+                    <div className="w-full sm:w-64 space-y-2">
+                      <label className="text-xs font-semibold text-muted-foreground uppercase flex items-center gap-1.5">
+                        <Clock className="w-3 h-3" /> {instance.input_label || 'Usage per Month'}
+                      </label>
+                      <div className="flex items-center gap-3">
+                        <Input
+                          type="number"
+                          value={instance.usageValue}
+                          onChange={(e) => updateServiceUsage(instance.instanceId, Number(e.target.value))}
+                          className="h-9 font-mono bg-white/5 border-white/10"
+                        />
+                        <span className="text-xs text-muted-foreground whitespace-nowrap">
+                          {instance.billing_cycle === 'hour' ? 'hrs/mo' : (instance.billing_cycle === 'month' ? 'units' : instance.pricing_unit)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-4 pl-4 border-l border-white/10">
+                      <div className="text-right min-w-[100px]">
+                        <p className="text-xs text-muted-foreground uppercase font-bold">Subtotal</p>
+                        <p className="text-xl font-mono font-bold text-primary">
+                          {instance.isVerifying ? (
+                            <span className="opacity-50">...</span>
+                          ) : (
+                            `${symbol}${((instance.unit_multiplier ? (instance.usageValue / instance.unit_multiplier) : instance.usageValue) * instance.price * instance.quantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                          )}
+                        </p>
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                        onClick={() => removeService(instance.instanceId)}
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          );
+        })}
 
         <ServicePicker />
 
