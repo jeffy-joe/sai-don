@@ -37,31 +37,18 @@ export const CLOUD_SERVICES: PricingService[] = [
   { id: 'aws-ec2-t3small', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.small', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'aws-ec2-t3medium', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.medium', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'aws-ec2-t3large', provider: 'AWS', category: 'Compute', service_name: 'EC2', instance_type: 't3.large', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'aws-ec2-c5large', provider: 'AWS', category: 'Compute', service_name: 'EC2 (Compute Opt)', instance_type: 'c5.large', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'aws-ec2-c5xlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2 (Compute Opt)', instance_type: 'c5.xlarge', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'aws-ec2-c52xlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2 (Compute Opt)', instance_type: 'c5.2xlarge', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'aws-ec2-r5large', provider: 'AWS', category: 'Compute', service_name: 'EC2 (Memory Opt)', instance_type: 'r5.large', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'aws-ec2-r5xlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2 (Memory Opt)', instance_type: 'r5.xlarge', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'aws-ec2-g4dnxlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2 (GPU)', instance_type: 'g4dn.xlarge', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'aws-ec2-p32xlarge', provider: 'AWS', category: 'Compute', service_name: 'EC2 (GPU)', instance_type: 'p3.2xlarge', region: 'US East (N. Virginia)', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'aws-lambda', provider: 'AWS', category: 'Compute', service_name: 'AWS Lambda', region: 'Global', price: 0, pricing_unit: '1M requests', billing_cycle: 'unit', unit_multiplier: 1000000, input_label: 'Requests (Millions)' },
 
   // --- AZURE COMPUTE ---
   { id: 'azure-vm-b1s', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'B1s', region: 'US East', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'azure-vm-b2s', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'B2s', region: 'US East', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'azure-vm-d2sv3', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'D2s v3', region: 'US East', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'azure-vm-d4sv3', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'D4s v3', region: 'US East', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'azure-vm-f2', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'F2', region: 'US East', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'azure-vm-f4', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Virtual Machines', instance_type: 'F4', region: 'US East', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'azure-functions', provider: 'Microsoft Azure', category: 'Compute', service_name: 'Azure Functions', region: 'Global', price: 0, pricing_unit: '1M executions', billing_cycle: 'unit', unit_multiplier: 1000000, input_label: 'Executions (Millions)' },
 
   // --- GCP COMPUTE ---
   { id: 'gcp-ce-e2micro', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-micro', region: 'us-central1', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'gcp-ce-e2small', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-small', region: 'us-central1', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'gcp-ce-e2medium', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'e2-medium', region: 'us-central1', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'gcp-ce-n2standard2', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'n2-standard-2', region: 'us-central1', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'gcp-ce-n2standard4', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine', instance_type: 'n2-standard-4', region: 'us-central1', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
-  { id: 'gcp-ce-t4', provider: 'Google Cloud Platform', category: 'Compute', service_name: 'Compute Engine (GPU)', instance_type: 'NVIDIA T4', region: 'us-central1', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
 
   // --- CONTAINERS ---
   { id: 'aws-eks', provider: 'AWS', category: 'Containers & Kubernetes', service_name: 'EKS Cluster', region: 'Global', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
@@ -86,7 +73,6 @@ export const CLOUD_SERVICES: PricingService[] = [
   { id: 'gcp-firestore', provider: 'Google Cloud Platform', category: 'Database', service_name: 'Firestore', region: 'Global', price: 0, pricing_unit: 'GB/month', billing_cycle: 'month', input_label: 'Storage (GB)' },
 
   // --- NETWORKING ---
-  { id: 'aws-transfer', provider: 'AWS', category: 'Networking', service_name: 'Data Transfer Out', region: 'Global', price: 0, pricing_unit: 'GB', billing_cycle: 'unit', input_label: 'Traffic (GB)' },
   { id: 'aws-alb', provider: 'AWS', category: 'Networking', service_name: 'Application Load Balancer', region: 'Global', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'azure-lb', provider: 'Microsoft Azure', category: 'Networking', service_name: 'Load Balancer', region: 'Global', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
   { id: 'gcp-lb', provider: 'Google Cloud Platform', category: 'Networking', service_name: 'Cloud Load Balancer', region: 'Global', price: 0, pricing_unit: 'hour', billing_cycle: 'hour' },
