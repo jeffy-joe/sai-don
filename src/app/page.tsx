@@ -1,13 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Cloud, Zap, Shield, BarChart3, ArrowRight, Globe, Server } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function LandingPage() {
-  const heroImage = PlaceHolderImages.find(img => img.id === 'hero-background');
-
   return (
     <div className="min-h-screen bg-background text-foreground dark selection:bg-primary selection:text-white">
       {/* Header */}
@@ -43,21 +39,6 @@ export default function LandingPage() {
               </Button>
             </Link>
           </div>
-
-          {/* Hero Image / Visual */}
-          {heroImage && (
-            <div className="mt-16 relative mx-auto max-w-5xl rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-              <Image 
-                src={heroImage.imageUrl} 
-                alt={heroImage.description}
-                width={1200}
-                height={800}
-                className="w-full h-auto object-cover opacity-80"
-                data-ai-hint={heroImage.imageHint}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-            </div>
-          )}
 
           {/* Feature Badges */}
           <div className="pt-20 grid grid-cols-2 md:grid-cols-4 gap-8 opacity-40 grayscale">
